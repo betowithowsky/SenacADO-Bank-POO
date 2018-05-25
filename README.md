@@ -1,9 +1,6 @@
 # SenacBankPOO
 
-======================================================================================
 CODIGO CRIAÇÂO DAS TABELAS NO DB
-======================================================================================
-
 
 CREATE TABLE PessoaFisica(
     Id INT NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1),
