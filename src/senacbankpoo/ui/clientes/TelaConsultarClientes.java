@@ -6,7 +6,11 @@
 package senacbankpoo.ui.clientes;
 
 import java.util.ArrayList;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import senacbankpoo.model.PessoaFisica;
+import senacbankpoo.services.cliente.ServicoPessoaFisica;
 
 /**
  *
@@ -14,6 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class TelaConsultarClientes extends javax.swing.JFrame {
 
+    private TelaCadastroClientes telaCadastroClientes;
     /**
      * Creates new form TelaConsultarClientes
      */
@@ -35,7 +40,7 @@ public class TelaConsultarClientes extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         CampoPesquisa = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        clientesTabela = new javax.swing.JTable();
         jButtonBuscar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -44,7 +49,7 @@ public class TelaConsultarClientes extends javax.swing.JFrame {
 
         CampoPesquisa.setText("jTextField1");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        clientesTabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -55,7 +60,7 @@ public class TelaConsultarClientes extends javax.swing.JFrame {
                 "Nome", "Sobrenome", "Num.Conta", "Saldo", "Tipo"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(clientesTabela);
 
         jButtonBuscar.setText("Buscar");
         jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -65,11 +70,21 @@ public class TelaConsultarClientes extends javax.swing.JFrame {
         });
 
         jButton2.setText("Sair");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Novo Cliente");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -111,30 +126,68 @@ public class TelaConsultarClientes extends javax.swing.JFrame {
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         String pesquisa = CampoPesquisa.getText();
-                try {
-                    ArrayList<Cliente> produtos = new ArrayList<Cliente>();
-                    if(pesquisa.equals(""))
-                        produtos = ServicoCliente.listar();
-                    else
-                        produtos = ServicoProduto.procurarPeloNome(pesquisa);
-
-                    if(produtos.size() > 0)
-                        atualizarTabela(produtos);
-                    else
-                        JOptionPane.showMessageDialog(rootPane, "Nenhum produto encontrado", "Aviso!", JOptionPane.ERROR_MESSAGE);
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-                }
+        try {
+            ArrayList<PessoaFisica> clientes = new ArrayList<PessoaFisica>();
+            if(pesquisa.equals(""))
+                clientes = ServicoPessoaFisica.listar();
+            else
+                clientes = ServicoPessoaFisica.procurarPeloNome(pesquisa);
+            
+            if(clientes.size() > 0)
+                atualizarTabela(clientes);
+            else
+                JOptionPane.showMessageDialog(rootPane, "Nenhum Cliente encontrado", "Aviso!", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        int selected = clientesTabela.getSelectedRow();
+        if(clientesTabela.getSelectedRowCount() > 0){
+            try {
+                if(telaCadastroClientes == null || !telaCadastroClientes.isDisplayable()) {
+                    telaCadastroClientes = new TelaCadastroClientes();
+                    telaCadastroClientes.pack();
+                    telaCadastroClientes.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    telaCadastroClientes.setLocationRelativeTo(null);
+                    telaCadastroClientes.setVisible(true);
+                }
+                telaCadastroClientes.toFront();
+                DefaultTableModel model = (DefaultTableModel)clientesTabela.getModel();
+                String cpf = (String)model.getValueAt(selected, 0);
+                PessoaFisica cliente = ServicoPessoaFisica.procurarPeloCPF(cpf);
+
+                telaCadastroClientes.alterarCliente(cliente);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+       private void atualizarTabela(ArrayList<PessoaFisica> clientes) {
+        DefaultTableModel model = (DefaultTableModel)clientesTabela.getModel();
+        model.setRowCount(0);
+        for (PessoaFisica cliente : clientes) {
+            Object[] row = {
+                cliente.getNome(),
+                cliente.getSobrenome()
+            };
+            model.addRow(row);
+        }
+    }
+ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CampoPesquisa;
+    private javax.swing.JTable clientesTabela;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
