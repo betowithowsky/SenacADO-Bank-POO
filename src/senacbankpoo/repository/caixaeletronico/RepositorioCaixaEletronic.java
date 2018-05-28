@@ -5,6 +5,13 @@
  */
 package senacbankpoo.repository.caixaeletronico;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import senacbankpoo.connection.ConnectionUtils;
+import senacbankpoo.model.Conta;
+import senacbankpoo.model.PessoaJuridica;
 import senacbankpoo.repository.contracts.IRepositorioCaixaEletronico;
 
 /**
@@ -12,20 +19,27 @@ import senacbankpoo.repository.contracts.IRepositorioCaixaEletronico;
  * @author Beto
  */
 public class RepositorioCaixaEletronic implements IRepositorioCaixaEletronico{
+    
+    static Connection connection;
 
     @Override
-    public void saque(double quantidade) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void saque(Conta conta, double quantidade) {
+        if(conta.saque(quantidade) == true){
+            System.out.println("Ok, Sacou");
+        }
+        System.out.println("Não tem Saldo.");
     }
 
     @Override
-    public void deposito(double quantidade) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deposito(Conta conta, double quantidade) {
+        conta.deposito(quantidade);
+        System.out.println("Conlcúido.");
     }
 
     @Override
-    public double saldo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public double saldo(Conta conta) {
+        double saldo = conta.getSaldo();
+        return saldo;
     }
     
 }

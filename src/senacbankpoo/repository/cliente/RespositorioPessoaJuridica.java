@@ -15,12 +15,13 @@ import java.util.ArrayList;
 import senacbankpoo.connection.ConnectionUtils;
 import senacbankpoo.model.PessoaJuridica;
 import senacbankpoo.repository.contracts.IRepositorio;
+import senacbankpoo.repository.contracts.IRepositorioPessoaJuridica;
 
 /**
  *
  * @author Beto
  */
-public class RespositorioPessoaJuridica implements IRepositorio{
+public class RespositorioPessoaJuridica implements IRepositorio, IRepositorioPessoaJuridica{
     
     static Connection connection;
 
@@ -29,7 +30,7 @@ public class RespositorioPessoaJuridica implements IRepositorio{
         try{
             connection = ConnectionUtils.getConnection();
             PessoaJuridica cliente = (PessoaJuridica) entity;
-            String sql = "INSERT INTO PessoaFisica(Nome, Sobrenome, CNPJ, DataNascimento, DataRegistro) VALUES (?, ?, ?, ?, CURRENT_DATE)";
+            String sql = "INSERT INTO PessoaJuridica(Nome, Sobrenome, CNPJ, DataNascimento, DataRegistro) VALUES (?, ?, ?, ?, CURRENT_DATE)";
             PreparedStatement pst = connection.prepareStatement(sql);
             
             DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -164,6 +165,54 @@ public class RespositorioPessoaJuridica implements IRepositorio{
             e.printStackTrace();
         }
         return clientes;
+    }
+    
+    @Override
+    public Object procurarPeloCNPJ(String CNPJ) throws SQLException {
+        try {
+            connection = ConnectionUtils.getConnection();
+            String sql = "SELECT * FROM PessoaJuridica WHERE CNPJ = ?";
+
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, CNPJ);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                PessoaJuridica cliente = new PessoaJuridica();
+                cliente.setId(rs.getInt("id"));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setCnpj(rs.getString("CNPJ"));
+                cliente.setDataNascimento(rs.getDate("dataNascimento"));
+                cliente.setGenero(rs.getInt("GeneroId"));
+                return cliente;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    @Override
+    public boolean verificaCNPJ(String CNPJ) {
+        try {
+            connection = ConnectionUtils.getConnection();
+
+            String sql = "SELECT * FROM PessoaJuridica WHERE CNPJ = ?";
+
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1, CNPJ);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return false;
     }
     
 }

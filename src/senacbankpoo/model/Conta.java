@@ -13,8 +13,17 @@ public abstract class Conta {
   
     private int clienteId;
     private int id;
+    private int numConta;
     private double saldo;
     private String password;
+    
+    public int getNumConta() {
+        return numConta;
+    }
+
+    public void setnumConta(int numConta) {
+        this.numConta = numConta;
+    }
     
     public int getClienteId() {
         return clienteId;
@@ -36,8 +45,8 @@ public abstract class Conta {
         return saldo;
     }
     
-    public void setSaldo(){
-        this.saldo = 0.0;
+    public void setSaldo(double saldo){
+        this.saldo = saldo;
     }
 
     public String getPassword() {
@@ -48,9 +57,14 @@ public abstract class Conta {
         this.password = password;
     }
 
-    public void saque(double quantidade){
-        double novoSaldo = this.saldo - quantidade;
-        this.saldo = novoSaldo;
+    public boolean saque(double quantidade){
+        if(this.saldo < quantidade){
+            return false;
+        }else{
+            double novoSaldo = this.saldo - quantidade;
+            this.saldo = novoSaldo;
+            return true;        
+        }
     }
     
     public void deposito(double quantidade){

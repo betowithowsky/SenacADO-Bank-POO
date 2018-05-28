@@ -79,6 +79,7 @@ public class RepositiorioContaCorrente implements IRepositorioConta{
                 ContaCorrente conta = new ContaCorrente();
                 conta.setId(rs.getInt("Id"));
                 conta.setClienteId(rs.getInt("ClienteId"));
+                conta.setSaldo(rs.getDouble("Saldo"));
                 return conta;
             }
         } catch (Exception e) {

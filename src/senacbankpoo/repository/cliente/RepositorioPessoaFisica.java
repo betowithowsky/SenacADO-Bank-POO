@@ -16,12 +16,13 @@ import senacbankpoo.connection.ConnectionUtils;
 import senacbankpoo.model.Pessoa;
 import senacbankpoo.model.PessoaFisica;
 import senacbankpoo.repository.contracts.IRepositorio;
+import senacbankpoo.repository.contracts.IRepositorioPessoaFisica;
 
 /**
  *
  * @author Beto
  */
-public class RepositiorioPessoaFisica implements IRepositorio{
+public class RepositorioPessoaFisica implements IRepositorioPessoaFisica, IRepositorio{
     
     static Connection connection;
 
@@ -166,5 +167,51 @@ public class RepositiorioPessoaFisica implements IRepositorio{
         }
         return clientes;
     }
+
+    @Override
+    public Object procurarPeloCPF(String CPF) throws SQLException {
+try {
+            connection = ConnectionUtils.getConnection();
+            String sql = "SELECT * FROM PessoaFisica WHERE CPF = ?";
+
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, CPF);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                PessoaFisica cliente = new PessoaFisica();
+                cliente.setId(rs.getInt("id"));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setCpf(rs.getString("CPF"));
+                cliente.setDataNascimento(rs.getDate("dataNascimento"));
+                cliente.setGenero(rs.getInt("GeneroId"));
+                return cliente;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;    }
+
+    @Override
+    public boolean verificaCPF(String CPF) throws SQLException {
+try {
+            connection = ConnectionUtils.getConnection();
+
+            String sql = "SELECT * FROM PessoaFisica WHERE CPF = ?";
+
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1, CPF);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return false;    }
     
 }

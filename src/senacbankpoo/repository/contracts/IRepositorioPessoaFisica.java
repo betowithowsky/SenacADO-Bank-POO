@@ -5,14 +5,13 @@
  */
 package senacbankpoo.repository.contracts;
 
-import senacbankpoo.model.Conta;
+import java.sql.SQLException;
 
 /**
  *
  * @author Beto
  */
-public interface IRepositorioCaixaEletronico {
-    public void saque(Conta conta, double quantidade);
-    public void deposito(Conta conta, double quantidade);
-    public double saldo(Conta conta);
+public interface IRepositorioPessoaFisica extends IRepositorio{    
+    public Object procurarPeloCPF(String CPF) throws SQLException;
+    public boolean verificaCPF (String CPF) throws SQLException;
 }
