@@ -13,7 +13,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import senacbankpoo.connection.ConnectionUtils;
-import senacbankpoo.model.Pessoa;
 import senacbankpoo.model.PessoaFisica;
 import senacbankpoo.repository.contracts.IRepositorio;
 import senacbankpoo.repository.contracts.IRepositorioPessoaFisica;
@@ -31,14 +30,16 @@ public class RepositorioPessoaFisica implements IRepositorioPessoaFisica, IRepos
         try{
             connection = ConnectionUtils.getConnection();
             PessoaFisica cliente = (PessoaFisica) entity;
-            String sql = "INSERT INTO PessoaFisica(Nome, Sobrenome, CPF, DataNascimento, DataRegistro) VALUES (?, ?, ?, ?, CURRENT_DATE)";
+            String sql = "INSERT INTO PessoaFisica(Nome, Sobrenome, CPF, GeneroID, DataRegistro) VALUES (?,?,?,?, CURRENT_DATE)";
             PreparedStatement pst = connection.prepareStatement(sql);
             
             DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             pst.setString(1, cliente.getNome());
-            pst.setString(2, format.format(cliente.getDataNascimento()));
-            pst.setInt(3, cliente.getGenero());
-            pst.setString(4, cliente.getCpf());
+            pst.setString(2, cliente.getSobrenome());
+           //pst.setString(3, cliente.getCpf()); pst.setString(2, format.format(cliente.getDataNascimento()));
+            pst.setString(3, cliente.getCpf());
+            pst.setInt(4, cliente.getGenero());
+            
             pst.execute();
         
         }catch(SQLException e){

@@ -13,7 +13,7 @@ import senacbankpoo.services.cliente.ServicoPessoaFisica;
  *
  * @author Beto
  */
-public class TelaCadastroClientes extends javax.swing.JFrame {
+public class TelaCadastroPessoaFisica extends javax.swing.JFrame {
 
     private boolean isAlterar = false;
     private Integer clienteId = 0;
@@ -21,7 +21,7 @@ public class TelaCadastroClientes extends javax.swing.JFrame {
     /**
      * Creates new form TelaCadastroClientes
      */
-    public TelaCadastroClientes() {
+    public TelaCadastroPessoaFisica() {
         initComponents();
         setTitle("Cadastrar Pessoa Fisica");
         setResizable(false);

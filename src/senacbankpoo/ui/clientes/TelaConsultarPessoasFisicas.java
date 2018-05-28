@@ -16,13 +16,13 @@ import senacbankpoo.services.cliente.ServicoPessoaFisica;
  *
  * @author Beto
  */
-public class TelaConsultarClientes extends javax.swing.JFrame {
+public class TelaConsultarPessoasFisicas extends javax.swing.JFrame {
 
-    private TelaCadastroClientes telaCadastroClientes;
+    private TelaCadastroPessoaFisica telaCadastroPessoaFisica;
     /**
      * Creates new form TelaConsultarClientes
      */
-    public TelaConsultarClientes() {
+    public TelaConsultarPessoasFisicas() {
         initComponents();
         setTitle("Consultar Clientes");
         setResizable(false);
@@ -92,9 +92,6 @@ public class TelaConsultarClientes extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(CampoPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                         .addComponent(jButtonBuscar))
@@ -102,7 +99,10 @@ public class TelaConsultarClientes extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)))
+                        .addComponent(jButton2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -148,25 +148,24 @@ public class TelaConsultarClientes extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         int selected = clientesTabela.getSelectedRow();
-        if(clientesTabela.getSelectedRowCount() > 0){
             try {
-                if(telaCadastroClientes == null || !telaCadastroClientes.isDisplayable()) {
-                    telaCadastroClientes = new TelaCadastroClientes();
-                    telaCadastroClientes.pack();
-                    telaCadastroClientes.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    telaCadastroClientes.setLocationRelativeTo(null);
-                    telaCadastroClientes.setVisible(true);
+                if(telaCadastroPessoaFisica == null || !telaCadastroPessoaFisica.isDisplayable()) {
+                    telaCadastroPessoaFisica = new TelaCadastroPessoaFisica();
+                    telaCadastroPessoaFisica.pack();
+                    telaCadastroPessoaFisica.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    telaCadastroPessoaFisica.setLocationRelativeTo(null);
+                    telaCadastroPessoaFisica.setVisible(true);
                 }
-                telaCadastroClientes.toFront();
+                telaCadastroPessoaFisica.toFront();
                 DefaultTableModel model = (DefaultTableModel)clientesTabela.getModel();
                 String cpf = (String)model.getValueAt(selected, 0);
                 PessoaFisica cliente = ServicoPessoaFisica.procurarPeloCPF(cpf);
 
-                telaCadastroClientes.alterarCliente(cliente);
+                telaCadastroPessoaFisica.alterarCliente(cliente);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }
-        }
+            
     }//GEN-LAST:event_jButton3ActionPerformed
        private void atualizarTabela(ArrayList<PessoaFisica> clientes) {
         DefaultTableModel model = (DefaultTableModel)clientesTabela.getModel();
