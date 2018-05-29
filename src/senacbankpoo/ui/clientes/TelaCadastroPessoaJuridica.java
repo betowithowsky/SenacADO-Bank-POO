@@ -104,7 +104,7 @@ public class TelaCadastroPessoaJuridica extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         PessoaJuridica cliente = new PessoaJuridica();
         cliente.setId(clienteId);
-        //cliente.setNome(campoNome.getText());
+        cliente.setNome(campoNome.getText());
         cliente.setCnpj(campoCNPJ.getText());
 
         try {

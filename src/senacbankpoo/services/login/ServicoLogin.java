@@ -13,15 +13,15 @@ import senacbankpoo.model.ContaCorrente;
  */
 public class ServicoLogin {
     
-    static IRepositorioConta repositorio = new RepositorioContaCorrente();
+   // static IRepositorioConta repositorio = new RepositorioContaCorrente();
     
     private ContaCorrente ContaLogada = null;
     
-    public static ContaCorrente Login(ContaCorrente){
+    /**public static ContaCorrente Login(ContaCorrente){
         try{
             
         }catch{
             
         }
-    }
+    }**/
 }

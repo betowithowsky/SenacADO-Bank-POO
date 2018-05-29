@@ -7,8 +7,10 @@ package senacbankpoo.ui;
 
 import javax.swing.JFrame;
 import senacbankpoo.ui.caixa.TelaCaixaCorrente;
+import senacbankpoo.ui.caixa.TelaCaixaPoupanca;
 import senacbankpoo.ui.clientes.TelaConsultaPessoaJuridica;
 import senacbankpoo.ui.clientes.TelaConsultarPessoasFisicas;
+import senacbankpoo.ui.contas.TelaConsultarContaPoupanca;
 import senacbankpoo.ui.contas.TelaConsultarContasCorrente;
 
 /**
@@ -19,10 +21,12 @@ public class Home extends javax.swing.JFrame {
 
     private TelaConsultarPessoasFisicas telaConsultarPessoasFisicas = null;
     private TelaConsultaPessoaJuridica telaConsultaPessoaJuridica = null;
-    
+
     private TelaConsultarContasCorrente telaConsultarContasCorrente = null;
-    
+    private TelaConsultarContaPoupanca telaConsultarContaPoupanca = null;
+
     private TelaCaixaCorrente telaCaixaCorrente = null;
+    private TelaCaixaPoupanca telaCaixaPoupanca = null;
 
     /**
      * Creates new form Home
@@ -46,6 +50,7 @@ public class Home extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
 
@@ -80,6 +85,14 @@ public class Home extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItem3);
+
+        jMenuItem5.setText("Gerenciar Contas Poupança");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem5);
 
         jMenuBar1.add(jMenu2);
 
@@ -156,6 +169,17 @@ public class Home extends javax.swing.JFrame {
         telaConsultarContasCorrente.toFront();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        if (telaCaixaPoupanca == null || !telaCaixaPoupanca.isDisplayable()) {
+            telaCaixaPoupanca = new TelaCaixaPoupanca();
+            telaCaixaPoupanca.pack();
+            telaCaixaPoupanca.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            telaCaixaPoupanca.setLocationRelativeTo(null);
+            telaCaixaPoupanca.setVisible(true);
+        }
+        telaConsultarContaPoupanca.toFront();
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -208,5 +232,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     // End of variables declaration//GEN-END:variables
 }
