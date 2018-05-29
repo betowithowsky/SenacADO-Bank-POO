@@ -14,7 +14,7 @@ import senacbankpoo.services.login.ServicoLoginCorrente;
  */
 public class TelaCaixaPoupanca extends javax.swing.JFrame {
 
-    private TelaSaque telaSaque = null;
+    private TelaSaqueCorrente telaSaque = null;
     private TelaTransferencia telaTranferencia = null;
     private TelaDeposito telaDeposito = null;
 
@@ -132,7 +132,7 @@ public class TelaCaixaPoupanca extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (telaSaque == null || !telaSaque.isDisplayable()) {
-            telaSaque = new TelaSaque();
+            telaSaque = new TelaSaqueCorrente();
             telaSaque.pack();
             telaSaque.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             telaSaque.setLocationRelativeTo(null);
