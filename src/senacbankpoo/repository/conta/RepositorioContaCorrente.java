@@ -199,9 +199,10 @@ public class RepositorioContaCorrente implements IRepositorioConta{
                 conta.setNomeCliente(rs.getString("nome"));
                 conta.setSobrenomeCliente(rs.getString(("sobrenome")));
                 conta.setnumConta(rs.getInt("numConta"));
-                conta.setSaldo(rs.getDouble(("Saldo")));
-                if(numConta == conta.getNumConta() && senha == conta.getPassword()){
-                    return conta;
+                conta.setPassword(rs.getString("senha"));
+                conta.setSaldo(rs.getDouble(("Saldo")));                
+                if(senha.equals(conta.getPassword())){
+                return conta;
                 }
                 
             }          

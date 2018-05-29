@@ -12,7 +12,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import senacbankpoo.connection.ConnectionUtils;
 import senacbankpoo.model.Conta;
-import senacbankpoo.model.ContaCorrente;
 import senacbankpoo.model.ContaPoupanca;
 import senacbankpoo.repository.contracts.IRepositorioConta;
 
@@ -20,7 +19,7 @@ import senacbankpoo.repository.contracts.IRepositorioConta;
  *
  * @author Beto
  */
-public class RepositorioContaPoupanca implements IRepositorioConta{
+public class RepositorioContaPoupanca implements IRepositorioConta {
 
     static Connection connection;
 
@@ -49,10 +48,10 @@ public class RepositorioContaPoupanca implements IRepositorioConta{
         try {
             connection = ConnectionUtils.getConnection();
             String sql = "SELECT * FROM ContaPoupanca";
-            
+
             PreparedStatement pst = connection.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
-            
+
             while (rs.next()) {
                 ContaPoupanca conta = new ContaPoupanca();
                 conta.setId(rs.getInt("Id"));
@@ -69,11 +68,11 @@ public class RepositorioContaPoupanca implements IRepositorioConta{
         try {
             connection = ConnectionUtils.getConnection();
             String sql = "SELECT * FROM ContaPoupanca WHERE Id = ?";
-            
+
             PreparedStatement pst = connection.prepareStatement(sql);
             pst.setInt(1, id);
             ResultSet rs = pst.executeQuery();
-            
+
             while (rs.next()) {
                 ContaPoupanca conta = new ContaPoupanca();
                 conta.setId(rs.getInt("Id"));
@@ -89,34 +88,97 @@ public class RepositorioContaPoupanca implements IRepositorioConta{
     @Override
     public void deletar(Integer id) throws SQLException {
         try {
-        connection = ConnectionUtils.getConnection();
-        String sql = "DELETE FROM ContaPoupanca WHERE id=?";
-        
-        PreparedStatement pst = connection.prepareStatement(sql);
-        
-        pst.setInt(1,id);
-        
-        
-        pst.execute();
-        
-        } catch(Exception e){
+            connection = ConnectionUtils.getConnection();
+            String sql = "DELETE FROM ContaPoupanca WHERE id=?";
+
+            PreparedStatement pst = connection.prepareStatement(sql);
+
+            pst.setInt(1, id);
+
+            pst.execute();
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
     public Object procurarPeloNumConta(int numConta) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        try {
+            connection = ConnectionUtils.getConnection();
+            String sql = "SELECT * FROM ContaPoupanca WHERE NumConta = ?";
 
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, numConta);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                ContaPoupanca contaPoupanca = new ContaPoupanca();
+                contaPoupanca.setId(rs.getInt("id"));
+                contaPoupanca.setClienteId(rs.getInt("ClienteId"));
+                contaPoupanca.setSaldo(rs.getDouble("Saldo"));
+                return contaPoupanca;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+  
     @Override
     public boolean verificaNumeroConta(String numConta) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            connection = ConnectionUtils.getConnection();
+            
+            String sql = "SELECT * FROM ContaPoupanca WHERE numConta = ?";
+
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1, numConta);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override
     public Object buscarPorIdCliente(int idCliente) throws SQLException {
+         ArrayList<ContaPoupanca> contas = new ArrayList();
+        try {
+            connection = ConnectionUtils.getConnection();
+
+            String sql = "SELECT PessoaFisica.NOME, PessoaFisica.SOBRENOME, ContaCorrente.NUMCONTA, CONTACORRENTE.SALDO  FROM PessoaFisica INNER JOIN ContaCorrente ON PessoaFisica.ID = contaCorrente.clienteId WHERE ClienteId = ?";
+
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1, String.valueOf(idCliente));
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                ContaPoupanca conta = new ContaPoupanca();
+                conta.setNomeTitular(rs.getString("nome"));
+                conta.setCnpj(rs.getString(("cnpj")));
+                conta.setnumConta(rs.getInt("numConta"));
+                conta.setSaldo(rs.getDouble(("Saldo")));
+                contas.add(conta);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return contas;
+    }
+
+    @Override
+    public Object loginConta(int numConta, String senha) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

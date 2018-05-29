@@ -5,11 +5,20 @@
  */
 package senacbankpoo.ui.contas;
 
+import java.util.ArrayList;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import senacbankpoo.model.ContaPoupanca;
+import senacbankpoo.services.conta.ServicoContaPoupanca;
+
 /**
  *
  * @author Yuri PC
  */
 public class TelaConsultarContaPoupanca extends javax.swing.JFrame {
+
+    private TelaCriarContaPoupanca telaCriarContaPoupanca;
 
     /**
      * Creates new form TelaConsultarContaPoupanca
@@ -62,6 +71,11 @@ public class TelaConsultarContaPoupanca extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tabelaContasCorrente);
 
         jButton2.setText("Nova Conta");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Sair");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -115,12 +129,62 @@ public class TelaConsultarContaPoupanca extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        String pesquisa = jTextField1.getText();
+        try {
+            ArrayList<ContaPoupanca> contas = new ArrayList<ContaPoupanca>();
+            if (pesquisa.equals("")) {
+                contas = ServicoContaPoupanca.listar();
+            } else {
+                contas = ServicoContaPoupanca.procurarPeloClienteId(Integer.parseInt(pesquisa));
+            }
+
+            if (contas.size() > 0) {
+                atualizarTabela(contas);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Nenhuma Conta foi encontrada", "Aviso!", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void atualizarTabela(ArrayList<ContaPoupanca> contas) {
+        DefaultTableModel model = (DefaultTableModel) tabelaContasCorrente.getModel();
+        model.setRowCount(0);
+        for (ContaPoupanca conta : contas) {
+            Object[] row = {
+                conta.getNumConta(),
+                //                conta.getNomeCliente(),                
+                conta.getSaldo()
+            };
+            model.addRow(row);
+        }
+    }
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+            if (telaCriarContaPoupanca == null || !telaCriarContaPoupanca.isDisplayable()) {
+                telaCriarContaPoupanca = new TelaCriarContaPoupanca();
+                telaCriarContaPoupanca.pack();
+                telaCriarContaPoupanca.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                telaCriarContaPoupanca.setLocationRelativeTo(null);
+                telaCriarContaPoupanca.setVisible(true);
+            }
+            telaCriarContaPoupanca.toFront();
+            //DefaultTableModel model = (DefaultTableModel)clientesTabela.getModel();
+            //String cpf = (String)model.getValueAt(selected, 0);
+            //ContaCorrente contaCorrente = ServicoContaCorrente.procurarPeloNumero(cpf);
+
+            //telaCriarContaCorrente.alterarCliente(contaCorrente);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
