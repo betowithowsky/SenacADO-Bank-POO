@@ -155,7 +155,9 @@ public class TelaConsultarContaPoupanca extends javax.swing.JFrame {
         for (ContaPoupanca conta : contas) {
             Object[] row = {
                 conta.getNumConta(),
-                //                conta.getNomeCliente(),                
+                conta.getNomeCliente(),
+                conta.getSobrenomeCliente(),
+                conta.getCPF(),
                 conta.getSaldo()
             };
             model.addRow(row);

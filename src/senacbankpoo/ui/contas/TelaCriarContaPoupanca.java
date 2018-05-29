@@ -5,12 +5,19 @@
  */
 package senacbankpoo.ui.contas;
 
+import javax.swing.JOptionPane;
+import senacbankpoo.model.ContaPoupanca;
+import senacbankpoo.services.conta.ServicoContaPoupanca;
+
 /**
  *
  * @author Yuri PC
  */
 public class TelaCriarContaPoupanca extends javax.swing.JFrame {
 
+    private Integer contaId = 0;
+    private boolean isAlterar = false;
+    
     /**
      * Creates new form TelaCriarContaPoupanca
      */
@@ -51,6 +58,11 @@ public class TelaCriarContaPoupanca extends javax.swing.JFrame {
         jTextField3.setText("jTextField3");
 
         jButton1.setText("Criar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cancelar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -114,6 +126,34 @@ public class TelaCriarContaPoupanca extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ContaPoupanca contaPoupanca = new ContaPoupanca();
+        contaPoupanca.setId(contaId);
+        contaPoupanca.setnumConta(Integer.parseInt(jTextField1.getText()));
+        contaPoupanca.setPassword(jTextField2.getText());
+        contaPoupanca.setClienteId(Integer.parseInt(jTextField3.getText()));
+
+        try {
+            if(isAlterar){
+                //ServicoContaPoupanca.atualizar(contaPoupanca);
+                JOptionPane.showMessageDialog(rootPane, 
+                                          "Conta Poupança alterado com sucesso",
+                                          "Alteração efetuada", 
+                                          JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                ServicoContaPoupanca.cadastrar(contaPoupanca);
+            JOptionPane.showMessageDialog(rootPane, 
+                                          "Conta Poupança inserido com sucesso",
+                                          "Cadastro efetuado", 
+                                          JOptionPane.INFORMATION_MESSAGE);
+            } 
+            //limpar();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

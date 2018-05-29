@@ -125,12 +125,12 @@ public class RepositorioContaPoupanca implements IRepositorioConta {
         }
         return null;
     }
-  
+
     @Override
     public boolean verificaNumeroConta(String numConta) throws SQLException {
         try {
             connection = ConnectionUtils.getConnection();
-            
+
             String sql = "SELECT * FROM ContaPoupanca WHERE numConta = ?";
 
             PreparedStatement pst = connection.prepareStatement(sql);
@@ -150,7 +150,7 @@ public class RepositorioContaPoupanca implements IRepositorioConta {
 
     @Override
     public Object buscarPorIdCliente(int idCliente) throws SQLException {
-         ArrayList<ContaPoupanca> contas = new ArrayList();
+        ArrayList<ContaPoupanca> contas = new ArrayList();
         try {
             connection = ConnectionUtils.getConnection();
 
@@ -162,8 +162,9 @@ public class RepositorioContaPoupanca implements IRepositorioConta {
 
             while (rs.next()) {
                 ContaPoupanca conta = new ContaPoupanca();
-                conta.setNomeTitular(rs.getString("nome"));
-                conta.setCnpj(rs.getString(("cnpj")));
+                conta.setNomeCliente(rs.getString("nome"));
+                conta.setSobrenomeCliente(rs.getString("sobrenome"));
+                conta.setCPF(rs.getString(("cpf")));
                 conta.setnumConta(rs.getInt("numConta"));
                 conta.setSaldo(rs.getDouble(("Saldo")));
                 contas.add(conta);
@@ -178,7 +179,33 @@ public class RepositorioContaPoupanca implements IRepositorioConta {
 
     @Override
     public Object loginConta(int numConta, String senha) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        try {
+            connection = ConnectionUtils.getConnection();
 
+            String sql = "SELECT PessoaFisica.NOME, PessoaFisica.SOBRENOME, ContaPoupanca.NUMCONTA, CONTAPOUPANCA.SALDO, CONTAPOUPANCA.SENHA FROM PessoaFisica INNER JOIN ContaPoupanca ON PessoaFisica.ID = contaPoupanca.clienteId WHERE numConta = ?";
+
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setInt(1, numConta);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                ContaPoupanca conta = new ContaPoupanca();
+                conta.setCPF(rs.getString("CPF"));
+                conta.setNomeCliente(rs.getString(("nome")));
+                conta.setSobrenomeCliente(rs.getString("sobrenome"));
+                conta.setnumConta(rs.getInt("numConta"));
+                conta.setPassword(rs.getString("senha"));
+                conta.setSaldo(rs.getDouble(("Saldo")));
+                if (senha.equals(conta.getPassword())) {
+                    return conta;
+                }
+
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

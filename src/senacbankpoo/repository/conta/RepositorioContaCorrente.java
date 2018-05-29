@@ -161,7 +161,7 @@ public class RepositorioContaCorrente implements IRepositorioConta{
         try {
             connection = ConnectionUtils.getConnection();
 
-            String sql = "SELECT PessoaFisica.NOME, PessoaFisica.SOBRENOME, ContaPoupanca.NUMCONTA, CONTAPOUPANCA.SALDO  FROM PessoaFisica INNER JOIN ContaPoupanca ON PessoaFisica.ID = contaPoupanca.clienteId WHERE ClienteId = ?";
+            String sql = "SELECT PessoaFisica.NOME, PessoaFisica.SOBRENOME, ContaCorrente.NUMCONTA, CONTACORRENTE.SALDO  FROM PessoaFisica INNER JOIN ContaCorrente ON PessoaFisica.ID = contaCorrente.clienteId WHERE ClienteId = ?";
 
             PreparedStatement pst = connection.prepareStatement(sql);
             pst.setString(1, String.valueOf(idCliente));

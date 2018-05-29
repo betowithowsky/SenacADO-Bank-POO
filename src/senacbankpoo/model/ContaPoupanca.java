@@ -12,24 +12,35 @@ package senacbankpoo.model;
 public class ContaPoupanca extends Conta {
     private float rendamensal;
     private float transferir;
-    private String cnpj;
-    private String NomeTitular;
+    private String nomeCliente;    
+    private String SobrenomeCliente;
+    private String CPF;
 
-    public String getCnpj() {
-        return cnpj;
+    public String getNomeCliente() {
+        return nomeCliente;
     }
 
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
+    public void setNomeCliente(String nomeCliente) {
+        this.nomeCliente = nomeCliente;
     }
 
-    public String getNomeTitular() {
-        return NomeTitular;
+    public String getSobrenomeCliente() {
+        return SobrenomeCliente;
     }
 
-    public void setNomeTitular(String NomeTitular) {
-        this.NomeTitular = NomeTitular;
+    public void setSobrenomeCliente(String SobrenomeCliente) {
+        this.SobrenomeCliente = SobrenomeCliente;
     }
+
+    public String getCPF() {
+        return CPF;
+    }
+
+    public void setCPF(String CPF) {
+        this.CPF = CPF;
+    }
+    
+
     
     public float getRendamensal() {
         return rendamensal;
