@@ -14,7 +14,7 @@ import senacbankpoo.model.Conta;
 import senacbankpoo.model.ContaCorrente;
 import senacbankpoo.model.PessoaJuridica;
 import senacbankpoo.repository.contracts.IRepositorioCaixaEletronico;
-import static senacbankpoo.services.login.ServicoLogin.contaLogada;
+import static senacbankpoo.services.login.ServicoLoginCorrente.contaLogada;
 
 /**
  *

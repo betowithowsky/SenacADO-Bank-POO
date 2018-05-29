@@ -7,21 +7,20 @@ package senacbankpoo.ui.caixa;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import senacbankpoo.services.conta.ServicoContaCorrente;
-import senacbankpoo.services.login.ServicoLogin;
+import senacbankpoo.services.login.ServicoLoginCorrente;
 
 /**
  *
- * @author Beto
+ * @author Yuri PC
  */
-public class TelaLogin extends javax.swing.JFrame {
+public class TelaLoginPoupanca extends javax.swing.JFrame {
 
-    private TelaCaixaCorrente telaCaixaCorrente = null;
-
+    private TelaCaixaPoupanca telaCaixaPoupanca = null;
+    
     /**
-     * Creates new form TelaLogin
+     * Creates new form TelaLoginPoupanca
      */
-    public TelaLogin() {
+    public TelaLoginPoupanca() {
         initComponents();
     }
 
@@ -60,11 +59,13 @@ public class TelaLogin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(campoConta, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
                     .addComponent(jLabel1)
-                    .addComponent(campoConta)
                     .addComponent(jLabel2)
                     .addComponent(campoSenha)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -77,7 +78,7 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(campoSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(campoSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -91,25 +92,25 @@ public class TelaLogin extends javax.swing.JFrame {
         String senha = campoSenha.getText();
 
         try {
-            if (ServicoLogin.Login(numConta, senha) == true) {
-                telaCaixaCorrente = new TelaCaixaCorrente();
-                telaCaixaCorrente.pack();
-                telaCaixaCorrente.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                telaCaixaCorrente.setLocationRelativeTo(null);
-                telaCaixaCorrente.setVisible(true);
+            if (ServicoLoginCorrente.Login(numConta, senha) == true) {
+                telaCaixaPoupanca = new TelaCaixaPoupanca();
+                telaCaixaPoupanca.pack();
+                telaCaixaPoupanca.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                telaCaixaPoupanca.setLocationRelativeTo(null);
+                telaCaixaPoupanca.setVisible(true);
             } else {
                 System.err.println("Conta Errada!");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro",
-                    JOptionPane.ERROR_MESSAGE);
+                JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-/**
- * @param args the command line arguments
- */
-public static void main(String args[]) {
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -120,47 +121,23 @@ public static void main(String args[]) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                
-
-
-
-}
+                }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaLogin.class
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        
-
-
-
-} catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaLogin.class
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        
-
-
-
-} catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaLogin.class
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        
-
-
-
-} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaLogin.class
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaLoginPoupanca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(TelaLoginPoupanca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(TelaLoginPoupanca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(TelaLoginPoupanca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaLogin().setVisible(true);
+                new TelaLoginPoupanca().setVisible(true);
             }
         });
     }
