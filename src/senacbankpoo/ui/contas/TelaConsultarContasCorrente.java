@@ -76,6 +76,11 @@ public class TelaConsultarContasCorrente extends javax.swing.JFrame {
         });
 
         botaoSair.setText("Sair");
+        botaoSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoSairActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -171,6 +176,10 @@ public class TelaConsultarContasCorrente extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }
     }//GEN-LAST:event_botaoCriarNovaContaActionPerformed
+
+    private void botaoSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSairActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_botaoSairActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

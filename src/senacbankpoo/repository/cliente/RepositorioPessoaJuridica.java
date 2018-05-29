@@ -28,11 +28,12 @@ public class RepositorioPessoaJuridica implements IRepositorio, IRepositorioPess
         try {
             connection = ConnectionUtils.getConnection();
             PessoaJuridica cliente = (PessoaJuridica) entity;
-            String sql = "INSERT INTO PessoaJuridica(CNPJ, DataRegistro) VALUES (?, CURRENT_DATE)";
+            String sql = "INSERT INTO PessoaJuridica(Nome, CNPJ, DataRegistro) VALUES (?, ?, CURRENT_DATE)";
             PreparedStatement pst = connection.prepareStatement(sql);
 
             // DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            pst.setString(1, cliente.getCnpj());
+            pst.setString(1, cliente.getNome());
+            pst.setString(2, cliente.getCnpj());
             pst.execute();
 
         } catch (SQLException e) {
@@ -55,6 +56,7 @@ public class RepositorioPessoaJuridica implements IRepositorio, IRepositorioPess
             while (rs.next()) {
                 PessoaJuridica cliente = new PessoaJuridica();
                 cliente.setId(rs.getInt("id"));
+                cliente.setNome(rs.getString("Nome"));
                 cliente.setCnpj(rs.getString("CNPJ"));
                 clientes.add(cliente);
             }
@@ -80,6 +82,7 @@ public class RepositorioPessoaJuridica implements IRepositorio, IRepositorioPess
             while (rs.next()) {
                 PessoaJuridica cliente = new PessoaJuridica();
                 cliente.setId(rs.getInt("id"));
+                cliente.setNome(rs.getString("Nome"));
                 cliente.setCnpj(rs.getString("CNPJ"));
                 return cliente;
             }
@@ -100,9 +103,10 @@ public class RepositorioPessoaJuridica implements IRepositorio, IRepositorioPess
 
             // DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, cliente.getCnpj());
-            ps.setInt(2, cliente.getId());
-
+            ps.setInt(1, cliente.getId());
+            ps.setString(2, cliente.getNome());
+            ps.setString(3, cliente.getCnpj());
+            
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -169,8 +173,7 @@ public class RepositorioPessoaJuridica implements IRepositorio, IRepositorioPess
                 cliente.setId(rs.getInt("id"));
                 cliente.setNome(rs.getString("nome"));
                 cliente.setCnpj(rs.getString("CNPJ"));
-                cliente.setDataNascimento(rs.getDate("dataNascimento"));
-                cliente.setGenero(rs.getInt("GeneroId"));
+               
                 return cliente;
             }
         } catch (SQLException e) {

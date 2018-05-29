@@ -18,8 +18,9 @@ import senacbankpoo.services.cliente.ServicoPessoaJuridica;
  */
 public class TelaConsultaPessoaJuridica extends javax.swing.JFrame {
 
-     private TelaCadastroPessoaJuridica telaCadastroPessoaJuridica;
+    private TelaCadastroPessoaJuridica telaCadastroPessoaJuridica;
     private String cnpj;
+
     /**
      * Creates new form TelaConsultaPessoaJuridica
      */
@@ -141,12 +142,26 @@ public class TelaConsultaPessoaJuridica extends javax.swing.JFrame {
             }
 
             if (clientes.size() > 0) {
-               // atualizarTabela(clientes);
+                atualizarTabela(clientes);
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Nenhum Cliente encontrado", "Aviso!", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
+
+    private void atualizarTabela(ArrayList<PessoaJuridica> clientes) {
+        DefaultTableModel model = (DefaultTableModel) clientesTabela.getModel();
+        model.setRowCount(0);
+        for (PessoaJuridica cliente : clientes) {
+            Object[] row = {
+                cliente.getId(),
+                cliente.getNome(),
+                cliente.getCnpj()
+            };
+            model.addRow(row);
         }
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 

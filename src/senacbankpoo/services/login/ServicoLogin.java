@@ -15,7 +15,7 @@ import senacbankpoo.repository.contracts.IRepositorioConta;
  */
 public class ServicoLogin {
     
-    static IRepositorioConta repositorio = new RepositorioContaCorrente();
+   // static IRepositorioConta repositorio = new RepositorioContaCorrente();
     
     private static ContaCorrente contaLogada = null;
     
@@ -35,5 +35,5 @@ public class ServicoLogin {
         }catch (Exception e) {
             e.getMessage();
         }
-    }
+    }**/
 }
