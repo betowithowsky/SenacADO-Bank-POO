@@ -21,7 +21,7 @@ public class ServicoLogin {
     
     public boolean Login(int numConta, String senha){
         try{
-            contaLogada = (ContaCorrente) repositorio.loginConta(numConta, senha);
+            //contaLogada = (ContaCorrente) repositorio.loginConta(numConta, senha);
             return true;
         }catch (Exception e) {
             e.getMessage();
@@ -35,5 +35,5 @@ public class ServicoLogin {
         }catch (Exception e) {
             e.getMessage();
         }
-    }**/
+    }
 }

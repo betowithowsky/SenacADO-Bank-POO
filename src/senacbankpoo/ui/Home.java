@@ -170,12 +170,12 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        if (telaCaixaPoupanca == null || !telaCaixaPoupanca.isDisplayable()) {
-            telaCaixaPoupanca = new TelaCaixaPoupanca();
-            telaCaixaPoupanca.pack();
-            telaCaixaPoupanca.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            telaCaixaPoupanca.setLocationRelativeTo(null);
-            telaCaixaPoupanca.setVisible(true);
+        if (telaConsultarContaPoupanca == null || !telaConsultarContaPoupanca.isDisplayable()) {
+            telaConsultarContaPoupanca = new TelaConsultarContaPoupanca();
+            telaConsultarContaPoupanca.pack();
+            telaConsultarContaPoupanca.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            telaConsultarContaPoupanca.setLocationRelativeTo(null);
+            telaConsultarContaPoupanca.setVisible(true);
         }
         telaConsultarContaPoupanca.toFront();
     }//GEN-LAST:event_jMenuItem5ActionPerformed

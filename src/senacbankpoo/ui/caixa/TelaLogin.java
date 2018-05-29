@@ -85,11 +85,11 @@ public class TelaLogin extends javax.swing.JFrame {
         String numConta = campoConta.getText();
         String senha = campoSenha.getText();
         
-        try{
+        /**try{
             if(ServicoContaCorrente.login)
         }catch(Exception e){
             
-        }
+        }**/
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
