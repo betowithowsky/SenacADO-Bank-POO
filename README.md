@@ -43,3 +43,10 @@ CREATE TABLE ContaPoupanca(
     PRIMARY KEY(Id),
     FOREIGN KEY ("CLIENTEID") REFERENCES PessoaFisica("ID")
 );
+
+--------------------------------------
+Unir informações de duas tabelas
+
+SELECT PessoaFisica.NOME, PessoaFisica.CPF, ContaCorrente.NUMCONTA, CONTACORRENTE.SALDO
+FROM PessoaFisica
+INNER JOIN contaCorrente ON PessoaFisica.ID = contaCorrente.clienteId;
