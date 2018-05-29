@@ -8,7 +8,7 @@ package senacbankpoo.ui.caixa;
 import javax.swing.JOptionPane;
 import senacbankpoo.model.ContaCorrente;
 import senacbankpoo.services.caixaEletronico.ServicoCaixaEletronico;
-import senacbankpoo.services.login.ServicoLogin;
+import senacbankpoo.services.login.ServicoLoginCorrente;
 
 /**
  *
@@ -42,7 +42,7 @@ public class TelaSaque extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        LabelSaldo.setText("Saldo: " + ServicoLogin.contaLogada.getSaldo());
+        LabelSaldo.setText("Saldo: " + ServicoLoginCorrente.contaLogada.getSaldo());
 
         LabelValorSacar.setText("Valor a Sacar:");
 
@@ -90,7 +90,7 @@ public class TelaSaque extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         double valorSaque = Double.parseDouble(campoValorSaque.getText());
-        ContaCorrente conta = ServicoLogin.contaLogada;
+        ContaCorrente conta = ServicoLoginCorrente.contaLogada;
         try{
             ServicoCaixaEletronico.saque(conta, valorSaque);            
         }catch(Exception e){
