@@ -6,15 +6,19 @@
 package senacbankpoo.ui.caixa;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import senacbankpoo.model.ContaCorrente;
 import senacbankpoo.services.caixaEletronico.ServicoCaixaEletronico;
 import senacbankpoo.services.login.ServicoLoginCorrente;
+import static senacbankpoo.services.login.ServicoLoginCorrente.contaLogada;
 
 /**
  *
  * @author Beto
  */
 public class TelaSaque extends javax.swing.JFrame {
+    
+    public double saldoConta = contaLogada.getSaldo();
 
     /**
      * Creates new form TelaSaque
@@ -42,7 +46,7 @@ public class TelaSaque extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        LabelSaldo.setText("Saldo: " + ServicoLoginCorrente.contaLogada.getSaldo());
+        LabelSaldo.setText("Saldo: " +  saldoConta);
 
         LabelValorSacar.setText("Valor a Sacar:");
 
@@ -90,15 +94,20 @@ public class TelaSaque extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         double valorSaque = Double.parseDouble(campoValorSaque.getText());
-        int idConta = ServicoLogin.contaLogada.getId();
+        int idConta = ServicoLoginCorrente.contaLogada.getId();
         ContaCorrente conta = ServicoLoginCorrente.contaLogada;
         try{
-            ServicoCaixaEletronico.saque(idConta, valorSaque);            
+            ServicoCaixaEletronico.saque(idConta, valorSaque);
+            atualizarLabel(contaLogada.getSaldo());
         }catch(Exception e){
             JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    public void atualizarLabel(double saldo) {   
+        LabelSaldo.setText("Saldo: " + saldo);
+        
+    }
     /**
      * @param args the command line arguments
      */

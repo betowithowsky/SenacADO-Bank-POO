@@ -188,7 +188,7 @@ public class RepositorioContaCorrente implements IRepositorioConta{
         try {
             connection = ConnectionUtils.getConnection();
             
-            String sql = "SELECT PessoaFisica.NOME, PessoaFisica.SOBRENOME, ContaCorrente.NUMCONTA, CONTACORRENTE.SALDO, CONTACORRENTE.SENHA FROM PessoaFisica INNER JOIN ContaCorrente ON PessoaFisica.ID = contaCorrente.clienteId WHERE numConta = ?";
+            String sql = "SELECT PessoaFisica.NOME, PessoaFisica.SOBRENOME, ContaCorrente.NUMCONTA, CONTACORRENTE.ID, CONTACORRENTE.SALDO, CONTACORRENTE.SENHA FROM PessoaFisica INNER JOIN ContaCorrente ON PessoaFisica.ID = contaCorrente.clienteId WHERE numConta = ?";
 
             PreparedStatement pst = connection.prepareStatement(sql);
             pst.setInt(1, numConta);
@@ -197,6 +197,7 @@ public class RepositorioContaCorrente implements IRepositorioConta{
             while (rs.next()) {
                 ContaCorrente conta = new ContaCorrente();
                 conta.setNomeCliente(rs.getString("nome"));
+                conta.setId(rs.getInt("id"));
                 conta.setSobrenomeCliente(rs.getString(("sobrenome")));
                 conta.setnumConta(rs.getInt("numConta"));
                 conta.setPassword(rs.getString("senha"));
