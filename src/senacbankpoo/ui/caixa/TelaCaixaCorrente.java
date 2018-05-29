@@ -63,11 +63,11 @@ public class TelaCaixaCorrente extends javax.swing.JFrame {
             }
         });
 
-        LabelBoasVindas.setText("Bem Vindo " + ServicoLoginCorrente.contaLogada.getNomeCliente());
+        LabelBoasVindas.setText("Bem Vindo " + senacbankpoo.services.login.ServicoLoginCorrente.contaLogada.getNomeCliente());
 
-        LabelSaldo.setText("Saldo: " + ServicoLoginCorrente.contaLogada.getSaldo());
+        LabelSaldo.setText("Saldo: " + senacbankpoo.services.login.ServicoLoginCorrente.contaLogada.getSaldo());
 
-        jLabel2.setText("Id:" + ServicoLogin.contaLogada.getId());
+        jLabel2.setText("Id:" + ServicoLoginCorrente.contaLogada.getId());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
