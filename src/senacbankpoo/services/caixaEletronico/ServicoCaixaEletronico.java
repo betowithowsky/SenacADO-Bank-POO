@@ -18,9 +18,9 @@ public class ServicoCaixaEletronico{
     
     static IRepositorioCaixaEletronico repositorio = new RepositorioCaixaEletronico();
 
-    public static void saque(Conta conta, double quantidade) {
+    public static void saque(int idConta, double quantidade) {
         try {
-            repositorio.saque(conta, quantidade);
+            repositorio.saque(idConta, quantidade);
         } catch (Exception e) {
             e.getMessage();
         }
