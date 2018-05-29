@@ -5,13 +5,18 @@
  */
 package senacbankpoo.ui.caixa;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import senacbankpoo.services.conta.ServicoContaCorrente;
+import senacbankpoo.services.login.ServicoLogin;
 
 /**
  *
  * @author Beto
  */
 public class TelaLogin extends javax.swing.JFrame {
+    
+    private TelaCaixaCorrente telaCaixaCorrente = null;
 
     /**
      * Creates new form TelaLogin
@@ -82,13 +87,22 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String numConta = campoConta.getText();
+        int numConta = Integer.parseInt(campoConta.getText());
         String senha = campoSenha.getText();
         
         try{
-            if(ServicoContaCorrente.login)
+            if(ServicoLogin.Login(numConta, senha) == true){
+                telaCaixaCorrente = new TelaCaixaCorrente();
+                telaCaixaCorrente.pack();
+                telaCaixaCorrente.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                telaCaixaCorrente.setLocationRelativeTo(null);
+                telaCaixaCorrente.setVisible(true);
+            }else{
+                System.err.println("Conta Errada!");
+            }
         }catch(Exception e){
-            
+            JOptionPane.showMessageDialog(rootPane, e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

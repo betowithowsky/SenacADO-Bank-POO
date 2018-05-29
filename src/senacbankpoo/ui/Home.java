@@ -8,6 +8,7 @@ package senacbankpoo.ui;
 import javax.swing.JFrame;
 import senacbankpoo.ui.caixa.TelaCaixaCorrente;
 import senacbankpoo.ui.caixa.TelaCaixaPoupanca;
+import senacbankpoo.ui.caixa.TelaLogin;
 import senacbankpoo.ui.clientes.TelaConsultaPessoaJuridica;
 import senacbankpoo.ui.clientes.TelaConsultarPessoasFisicas;
 import senacbankpoo.ui.contas.TelaConsultarContaPoupanca;
@@ -27,6 +28,8 @@ public class Home extends javax.swing.JFrame {
 
     private TelaCaixaCorrente telaCaixaCorrente = null;
     private TelaCaixaPoupanca telaCaixaPoupanca = null;
+    
+    private TelaLogin telaLogin = null;
 
     /**
      * Creates new form Home
@@ -53,6 +56,7 @@ public class Home extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
+        menuLoginContaCorrente = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -105,6 +109,14 @@ public class Home extends javax.swing.JFrame {
             }
         });
         jMenu3.add(jMenuItem4);
+
+        menuLoginContaCorrente.setText("Login Conta Corrente");
+        menuLoginContaCorrente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuLoginContaCorrenteActionPerformed(evt);
+            }
+        });
+        jMenu3.add(menuLoginContaCorrente);
 
         jMenuBar1.add(jMenu3);
 
@@ -180,6 +192,17 @@ public class Home extends javax.swing.JFrame {
         telaConsultarContaPoupanca.toFront();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
+    private void menuLoginContaCorrenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLoginContaCorrenteActionPerformed
+        if (telaLogin == null || !telaLogin.isDisplayable()) {
+            telaLogin = new TelaLogin();
+            telaLogin.pack();
+            telaLogin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            telaLogin.setLocationRelativeTo(null);
+            telaLogin.setVisible(true);
+        }
+        telaLogin.toFront();
+    }//GEN-LAST:event_menuLoginContaCorrenteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -233,5 +256,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem menuLoginContaCorrente;
     // End of variables declaration//GEN-END:variables
 }
