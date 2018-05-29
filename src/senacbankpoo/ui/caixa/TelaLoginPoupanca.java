@@ -8,6 +8,7 @@ package senacbankpoo.ui.caixa;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import senacbankpoo.services.login.ServicoLoginCorrente;
+import senacbankpoo.services.login.ServicoLoginPoupanca;
 
 /**
  *
@@ -92,7 +93,7 @@ public class TelaLoginPoupanca extends javax.swing.JFrame {
         String senha = campoSenha.getText();
 
         try {
-            if (ServicoLoginCorrente.Login(numConta, senha) == true) {
+            if (ServicoLoginPoupanca.Login(numConta, senha) == true) {
                 telaCaixaPoupanca = new TelaCaixaPoupanca();
                 telaCaixaPoupanca.pack();
                 telaCaixaPoupanca.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

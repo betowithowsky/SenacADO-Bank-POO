@@ -48,7 +48,7 @@ public class RepositorioContaPoupanca implements IRepositorioConta {
         ArrayList<Conta> contas = new ArrayList<Conta>();
         try {
             connection = ConnectionUtils.getConnection();
-            String sql = "SELECT PessoaFisica.NOME, PessoaFisica.CPF, ContaPoupanca.NUMCONTA, ContaPoupanca.SALDO FROM PessoaFisica INNER JOIN ContaPoupanca ON PessoaFisica.ID = ContaPoupanca.clienteId";
+            String sql = "SELECT PessoaFisica.NOME, PessoaFisica.SOBRENOME, ContaPoupanca.NUMCONTA, ContaPoupanca.SALDO FROM PessoaFisica INNER JOIN ContaPoupanca ON PessoaFisica.ID = ContaPoupanca.clienteId";
 
             PreparedStatement pst = connection.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
@@ -56,7 +56,7 @@ public class RepositorioContaPoupanca implements IRepositorioConta {
             while (rs.next()) {
                 ContaPoupanca conta = new ContaPoupanca();
                 conta.setNomeCliente(rs.getString("nome"));
-                conta.setCPF(rs.getString("CPF"));
+                conta.setSobrenomeCliente(rs.getString(("sobrenome")));
                 conta.setnumConta(rs.getInt("numConta"));
                 conta.setSaldo(rs.getDouble("Saldo"));
                 contas.add(conta);
@@ -168,7 +168,6 @@ public class RepositorioContaPoupanca implements IRepositorioConta {
                 ContaPoupanca conta = new ContaPoupanca();
                 conta.setNomeCliente(rs.getString("nome"));
                 conta.setSobrenomeCliente(rs.getString("sobrenome"));
-                conta.setCPF(rs.getString(("cpf")));
                 conta.setnumConta(rs.getInt("numConta"));
                 conta.setSaldo(rs.getDouble(("Saldo")));
                 contas.add(conta);
@@ -193,8 +192,7 @@ public class RepositorioContaPoupanca implements IRepositorioConta {
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
-                ContaPoupanca conta = new ContaPoupanca();
-                conta.setCPF(rs.getString("CPF"));
+                ContaPoupanca conta = new ContaPoupanca();           
                 conta.setNomeCliente(rs.getString(("nome")));
                 conta.setSobrenomeCliente(rs.getString("sobrenome"));
                 conta.setnumConta(rs.getInt("numConta"));
