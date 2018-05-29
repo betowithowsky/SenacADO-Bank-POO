@@ -19,5 +19,6 @@ public interface IRepositorioConta {
     public Object buscarPorIdCliente(int idCliente) throws SQLException;
     public Object procurarPeloNumConta(int numConta) throws SQLException;
     public boolean verificaNumeroConta(String numConta) throws SQLException;
+    public Object loginConta(int numConta, String senha) throws SQLException;
     
 }

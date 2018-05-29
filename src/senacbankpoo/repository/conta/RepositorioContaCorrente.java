@@ -183,4 +183,35 @@ public class RepositorioContaCorrente implements IRepositorioConta{
         return contas;
     }
     
+    @Override
+    public Object loginConta(int numConta, String senha) throws SQLException {
+        try {
+            connection = ConnectionUtils.getConnection();
+            
+            String sql = "SELECT PessoaFisica.NOME, PessoaFisica.SOBRENOME, ContaCorrente.NUMCONTA, CONTACORRENTE.SALDO, CONTACORRENTE.SENHA FROM PessoaFisica INNER JOIN ContaCorrente ON PessoaFisica.ID = contaCorrente.clienteId WHERE numConta = ?";
+
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setInt(1, numConta);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                ContaCorrente conta = new ContaCorrente();
+                conta.setNomeCliente(rs.getString("nome"));
+                conta.setSobrenomeCliente(rs.getString(("sobrenome")));
+                conta.setnumConta(rs.getInt("numConta"));
+                conta.setSaldo(rs.getDouble(("Saldo")));
+                if(numConta == conta.getNumConta() && senha == conta.getPassword()){
+                    return conta;
+                }
+                
+            }          
+            
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
 }

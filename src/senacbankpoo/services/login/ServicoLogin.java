@@ -6,6 +6,8 @@
 package senacbankpoo.services.login;
 
 import senacbankpoo.model.ContaCorrente;
+import senacbankpoo.repository.conta.RepositorioContaCorrente;
+import senacbankpoo.repository.contracts.IRepositorioConta;
 
 /**
  *
@@ -15,13 +17,23 @@ public class ServicoLogin {
     
     static IRepositorioConta repositorio = new RepositorioContaCorrente();
     
-    private ContaCorrente ContaLogada = null;
+    private static ContaCorrente contaLogada = null;
     
-    public static ContaCorrente Login(ContaCorrente){
+    public boolean Login(int numConta, String senha){
         try{
-            
-        }catch{
-            
+            contaLogada = (ContaCorrente) repositorio.loginConta(numConta, senha);
+            return true;
+        }catch (Exception e) {
+            e.getMessage();
+        }
+        return false;
+    }
+    
+    public void Logout(){
+        try{
+            contaLogada = null;
+        }catch (Exception e) {
+            e.getMessage();
         }
     }
 }
