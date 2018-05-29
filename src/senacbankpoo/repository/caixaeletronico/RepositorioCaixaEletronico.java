@@ -28,12 +28,12 @@ public class RepositorioCaixaEletronico implements IRepositorioCaixaEletronico{
     public void saque(int idConta, double quantidade) {
         try {
             if(contaLogada.getSaldo() > quantidade){
-            double novoSaldo = quantidade;
+            double novoSaldo = contaLogada.getSaldo() - quantidade;
             connection = ConnectionUtils.getConnection();            
             String sql = "UPDATE contaCorrente SET Saldo = ? WHERE Id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setDouble(1, novoSaldo);
-            ps.setInt(2, contaLogada.getId());           
+            ps.setInt(2, idConta);           
             ps.execute();
                     
             }
