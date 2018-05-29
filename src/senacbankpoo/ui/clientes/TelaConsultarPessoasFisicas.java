@@ -47,17 +47,15 @@ public class TelaConsultarPessoasFisicas extends javax.swing.JFrame {
 
         jLabel1.setText("Nome Titutal/CPF:");
 
-        CampoPesquisa.setText("jTextField1");
-
         clientesTabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Nome", "Sobrenome", "Num.Conta", "Saldo", "Tipo"
+                "ID", "Nome", "Sobrenome", "CPF"
             }
         ));
         jScrollPane1.setViewportView(clientesTabela);
@@ -172,8 +170,10 @@ public class TelaConsultarPessoasFisicas extends javax.swing.JFrame {
         model.setRowCount(0);
         for (PessoaFisica cliente : clientes) {
             Object[] row = {
+                cliente.getId(),
                 cliente.getNome(),
-                cliente.getSobrenome()
+                cliente.getSobrenome(),
+                cliente.getCpf()
             };
             model.addRow(row);
         }

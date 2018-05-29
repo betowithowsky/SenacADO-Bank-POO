@@ -12,6 +12,33 @@ package senacbankpoo.model;
 public class ContaCorrente extends Conta{
     private float transferir;
     private float taxamensal;
+    private String nomeCliente;    
+    private String SobrenomeCliente;
+    private String CPF;
+    
+    public String getSobrenomeCliente() {
+        return SobrenomeCliente;
+    }
+
+    public void setSobrenomeCliente(String SobrenomeCliente) {
+        this.SobrenomeCliente = SobrenomeCliente;
+    }
+
+    public String getNomeCliente() {
+        return nomeCliente;
+    }
+
+    public void setNomeCliente(String nomeCliente) {
+        this.nomeCliente = nomeCliente;
+    }
+
+    public String getCPF() {
+        return CPF;
+    }
+
+    public void setCPF(String CPF) {
+        this.CPF = CPF;
+    }
 
     public float getTransferir() {
         return transferir;

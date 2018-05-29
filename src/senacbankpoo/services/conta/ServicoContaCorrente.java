@@ -48,7 +48,7 @@ public class ServicoContaCorrente {
         return null;
     }
     
-    public static ArrayList<ContaCorrente> procurarPeloNome(int clienteId) {
+    public static ArrayList<ContaCorrente> procurarPeloClienteId(int clienteId) {
         try {
             return (ArrayList<ContaCorrente>) repositorio.buscarPorIdCliente(clienteId);
         } catch (Exception e) {

@@ -63,6 +63,7 @@ public class RepositorioPessoaFisica implements IRepositorioPessoaFisica, IRepos
                 PessoaFisica cliente = new PessoaFisica();
                 cliente.setId(rs.getInt("id"));
                 cliente.setNome(rs.getString("nome"));
+                cliente.setSobrenome(rs.getString("sobrenome"));
                 cliente.setCpf(rs.getString("CPF"));
                 //cliente.setDataNascimento(rs.getDate("dataNascimento"));
                 cliente.setGenero(rs.getInt("GeneroId"));
@@ -156,6 +157,7 @@ public class RepositorioPessoaFisica implements IRepositorioPessoaFisica, IRepos
                 PessoaFisica cliente = new PessoaFisica();
                 cliente.setId(rs.getInt("id"));
                 cliente.setNome(rs.getString("nome"));
+                cliente.setSobrenome(rs.getString("sobrenome"));
                 cliente.setCpf(rs.getString("CPF"));
                 cliente.setDataNascimento(rs.getDate("dataNascimento"));
                 cliente.setGenero(rs.getInt("GeneroId"));
@@ -184,8 +186,9 @@ try {
                 PessoaFisica cliente = new PessoaFisica();
                 cliente.setId(rs.getInt("id"));
                 cliente.setNome(rs.getString("nome"));
+                cliente.setSobrenome(rs.getString("sobrenome"));
                 cliente.setCpf(rs.getString("CPF"));
-                cliente.setDataNascimento(rs.getDate("dataNascimento"));
+                //.setDataNascimento(rs.getDate("dataNascimento"));
                 cliente.setGenero(rs.getInt("GeneroId"));
                 return cliente;
             }

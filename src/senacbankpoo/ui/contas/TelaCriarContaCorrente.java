@@ -122,13 +122,13 @@ public class TelaCriarContaCorrente extends javax.swing.JFrame {
             if(isAlterar){
                 //ServicoContaCorrente.atualizar(contaCorrente);
                 JOptionPane.showMessageDialog(rootPane, 
-                                          "Pessoa Fisica alterado com sucesso",
+                                          "Conta Corrente alterado com sucesso",
                                           "Alteração efetuada", 
                                           JOptionPane.INFORMATION_MESSAGE);
             } else {
                 ServicoContaCorrente.cadastrar(contaCorrente);
             JOptionPane.showMessageDialog(rootPane, 
-                                          "Pessoa Fisica inserido com sucesso",
+                                          "Conta Corrente inserido com sucesso",
                                           "Cadastro efetuado", 
                                           JOptionPane.INFORMATION_MESSAGE);
             } 

@@ -18,7 +18,7 @@ import senacbankpoo.repository.contracts.IRepositorioCaixaEletronico;
  *
  * @author Beto
  */
-public class RepositorioCaixaEletronic implements IRepositorioCaixaEletronico{
+public class RepositorioCaixaEletronico implements IRepositorioCaixaEletronico{
     
     static Connection connection;
 

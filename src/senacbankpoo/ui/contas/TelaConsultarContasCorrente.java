@@ -5,8 +5,11 @@
  */
 package senacbankpoo.ui.contas;
 
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import senacbankpoo.model.ContaCorrente;
 import senacbankpoo.services.conta.ServicoContaCorrente;
 
 /**
@@ -39,7 +42,7 @@ public class TelaConsultarContasCorrente extends javax.swing.JFrame {
         campoConta = new javax.swing.JTextField();
         botaoBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelaContasCorrente = new javax.swing.JTable();
         botaoCriarNovaConta = new javax.swing.JButton();
         botaoSair = new javax.swing.JButton();
 
@@ -52,7 +55,7 @@ public class TelaConsultarContasCorrente extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaContasCorrente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -60,10 +63,10 @@ public class TelaConsultarContasCorrente extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Num.Conta", "Nome Titular", "Sobrenome Titular", "Saldo"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabelaContasCorrente);
 
         botaoCriarNovaConta.setText("Nova Conta");
         botaoCriarNovaConta.addActionListener(new java.awt.event.ActionListener() {
@@ -117,9 +120,37 @@ public class TelaConsultarContasCorrente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoBuscarActionPerformed
-        // TODO add your handling code here:
+        String pesquisa = campoConta.getText();
+        try {
+            ArrayList<ContaCorrente> contas = new ArrayList<ContaCorrente>();
+            if(pesquisa.equals(""))
+            contas = ServicoContaCorrente.listar();
+            else
+            contas = ServicoContaCorrente.procurarPeloClienteId(Integer.parseInt(pesquisa));
+
+            if(contas.size() > 0)
+            atualizarTabela(contas);
+            else
+            JOptionPane.showMessageDialog(rootPane, "Nenhuma Conta foi encontrada", "Aviso!", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_botaoBuscarActionPerformed
 
+    private void atualizarTabela(ArrayList<ContaCorrente> contas) {
+        DefaultTableModel model = (DefaultTableModel)tabelaContasCorrente.getModel();
+        model.setRowCount(0);
+        for (ContaCorrente conta : contas) {
+            Object[] row = {
+                conta.getNumConta(),
+                conta.getNomeCliente(),
+                conta.getSobrenomeCliente(),                
+                conta.getSaldo()
+            };
+            model.addRow(row);
+        }
+    }
+    
     private void botaoCriarNovaContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCriarNovaContaActionPerformed
         //int selected = tabelaContas.getSelectedRow();
             try {
@@ -149,6 +180,6 @@ public class TelaConsultarContasCorrente extends javax.swing.JFrame {
     private javax.swing.JTextField campoConta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tabelaContasCorrente;
     // End of variables declaration//GEN-END:variables
 }

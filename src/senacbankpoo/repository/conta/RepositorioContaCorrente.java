@@ -46,19 +46,22 @@ public class RepositorioContaCorrente implements IRepositorioConta{
     }
 
     @Override
-    public ArrayList<Conta> listar() throws SQLException {
-        ArrayList<Conta> contas = new ArrayList<Conta>();
+    public ArrayList<ContaCorrente> listar() throws SQLException {
+        ArrayList<ContaCorrente> contas = new ArrayList<ContaCorrente>();
         try {
             connection = ConnectionUtils.getConnection();
-            String sql = "SELECT * FROM ContaCorrente";
+            String sql = "SELECT PessoaFisica.NOME, PessoaFisica.SOBRENOME, ContaCorrente.NUMCONTA, CONTACORRENTE.SALDO FROM PessoaFisica INNER JOIN contaCorrente ON PessoaFisica.ID = contaCorrente.clienteId";
             
             PreparedStatement pst = connection.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
             
             while (rs.next()) {
                 ContaCorrente conta = new ContaCorrente();
-                conta.setId(rs.getInt("Id"));
-                conta.setClienteId(rs.getInt("ClienteId"));
+                conta.setNomeCliente(rs.getString("nome"));
+                conta.setSobrenomeCliente(rs.getString(("sobrenome")));
+                conta.setnumConta(rs.getInt("numConta"));
+                conta.setSaldo(rs.getDouble(("Saldo")));
+                contas.add(conta);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -154,29 +157,30 @@ public class RepositorioContaCorrente implements IRepositorioConta{
 
     @Override
     public Object buscarPorIdCliente(int idCliente) throws SQLException {
- ArrayList<ContaCorrente> clientes = new ArrayList();
+ ArrayList<ContaCorrente> contas = new ArrayList();
         try {
             connection = ConnectionUtils.getConnection();
 
-            String sql = "SELECT * FROM ContaCorrente WHERE ClienteId = ?";
+            String sql = "SELECT PessoaFisica.NOME, PessoaFisica.SOBRENOME, ContaCorrente.NUMCONTA, CONTACORRENTE.SALDO  FROM PessoaFisica INNER JOIN ContaCorrente ON PessoaFisica.ID = contaCorrente.clienteId WHERE ClienteId = ?";
 
             PreparedStatement pst = connection.prepareStatement(sql);
             pst.setString(1, String.valueOf(idCliente));
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
-                ContaCorrente contaCorrente = new ContaCorrente();
-                contaCorrente.setId(rs.getInt("id"));
-                contaCorrente.setClienteId(rs.getInt("ClienteId"));
-                contaCorrente.setSaldo(rs.getDouble("Saldo"));
-                return contaCorrente;
+                ContaCorrente conta = new ContaCorrente();
+                conta.setNomeCliente(rs.getString("nome"));
+                conta.setSobrenomeCliente(rs.getString(("sobrenome")));
+                conta.setnumConta(rs.getInt("numConta"));
+                conta.setSaldo(rs.getDouble(("Saldo")));
+                contas.add(conta);
             }
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-        return clientes;
+        return contas;
     }
     
 }
