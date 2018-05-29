@@ -12,6 +12,6 @@ import java.sql.SQLException;
  * @author Beto
  */
 public interface IRepositorioPessoaFisica extends IRepositorio{    
-    public Object procurarPeloCPF(String CPF) throws SQLException;
-    public boolean verificaCPF (String CPF) throws SQLException;
+    public Object procurarPeloCPF (String CPF) throws SQLException;
+    public boolean verificaCPF (String CPF) throws SQLException; 
 }

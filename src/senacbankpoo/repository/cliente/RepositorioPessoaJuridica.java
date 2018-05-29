@@ -9,8 +9,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import senacbankpoo.connection.ConnectionUtils;
 import senacbankpoo.model.PessoaJuridica;
@@ -21,26 +19,23 @@ import senacbankpoo.repository.contracts.IRepositorioPessoaJuridica;
  *
  * @author Beto
  */
-public class RespositorioPessoaJuridica implements IRepositorio, IRepositorioPessoaJuridica{
-    
+public class RepositorioPessoaJuridica implements IRepositorio, IRepositorioPessoaJuridica {
+
     static Connection connection;
 
     @Override
     public void inserir(Object entity) throws SQLException {
-        try{
+        try {
             connection = ConnectionUtils.getConnection();
             PessoaJuridica cliente = (PessoaJuridica) entity;
-            String sql = "INSERT INTO PessoaJuridica(Nome, Sobrenome, CNPJ, DataNascimento, DataRegistro) VALUES (?, ?, ?, ?, CURRENT_DATE)";
+            String sql = "INSERT INTO PessoaJuridica(CNPJ, DataRegistro) VALUES (?, CURRENT_DATE)";
             PreparedStatement pst = connection.prepareStatement(sql);
-            
-            DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            pst.setString(1, cliente.getNome());
-            pst.setString(2, format.format(cliente.getDataNascimento()));
-            pst.setInt(3, cliente.getGenero());
-            pst.setString(4, cliente.getCnpj());
+
+            // DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            pst.setString(1, cliente.getCnpj());
             pst.execute();
-        
-        }catch(SQLException e){
+
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
@@ -60,10 +55,7 @@ public class RespositorioPessoaJuridica implements IRepositorio, IRepositorioPes
             while (rs.next()) {
                 PessoaJuridica cliente = new PessoaJuridica();
                 cliente.setId(rs.getInt("id"));
-                cliente.setNome(rs.getString("nome"));
                 cliente.setCnpj(rs.getString("CNPJ"));
-                cliente.setDataNascimento(rs.getDate("dataNascimento"));
-                cliente.setGenero(rs.getInt("GeneroId"));
                 clientes.add(cliente);
             }
 
@@ -88,10 +80,7 @@ public class RespositorioPessoaJuridica implements IRepositorio, IRepositorioPes
             while (rs.next()) {
                 PessoaJuridica cliente = new PessoaJuridica();
                 cliente.setId(rs.getInt("id"));
-                cliente.setNome(rs.getString("nome"));
                 cliente.setCnpj(rs.getString("CNPJ"));
-                cliente.setDataNascimento(rs.getDate("dataNascimento"));
-                cliente.setGenero(rs.getInt("GeneroId"));
                 return cliente;
             }
 
@@ -107,16 +96,13 @@ public class RespositorioPessoaJuridica implements IRepositorio, IRepositorioPes
         try {
             PessoaJuridica cliente = (PessoaJuridica) entity;
             connection = ConnectionUtils.getConnection();
-            String sql = "UPDATE PessoaJuridica SET Nome=?, DataNascimento=?, GeneroId=?, CNPJ=? WHERE Id = ?";
+            String sql = "UPDATE PessoaJuridica SET CNPJ=? WHERE Id = ?";
 
-            DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            // DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, cliente.getNome());
-            ps.setString(2, format.format(cliente.getDataNascimento()));
-            ps.setInt(3, cliente.getGenero());
-            ps.setString(4, cliente.getCnpj());
-            ps.setInt(9, cliente.getId());
-            
+            ps.setString(1, cliente.getCnpj());
+            ps.setInt(2, cliente.getId());
+
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -140,7 +126,7 @@ public class RespositorioPessoaJuridica implements IRepositorio, IRepositorioPes
 
     @Override
     public Object buscarPorNome(String nome) throws SQLException {
-         ArrayList<PessoaJuridica> clientes = new ArrayList();
+        ArrayList<PessoaJuridica> clientes = new ArrayList();
         try {
             connection = ConnectionUtils.getConnection();
 
@@ -166,7 +152,7 @@ public class RespositorioPessoaJuridica implements IRepositorio, IRepositorioPes
         }
         return clientes;
     }
-    
+
     @Override
     public Object procurarPeloCNPJ(String CNPJ) throws SQLException {
         try {
@@ -192,7 +178,7 @@ public class RespositorioPessoaJuridica implements IRepositorio, IRepositorioPes
         }
         return null;
     }
-    
+
     @Override
     public boolean verificaCNPJ(String CNPJ) {
         try {
@@ -214,5 +200,5 @@ public class RespositorioPessoaJuridica implements IRepositorio, IRepositorioPes
         }
         return false;
     }
-    
+
 }

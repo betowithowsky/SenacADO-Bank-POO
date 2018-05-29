@@ -64,7 +64,7 @@ public class RepositorioPessoaFisica implements IRepositorioPessoaFisica, IRepos
                 cliente.setId(rs.getInt("id"));
                 cliente.setNome(rs.getString("nome"));
                 cliente.setCpf(rs.getString("CPF"));
-                cliente.setDataNascimento(rs.getDate("dataNascimento"));
+                //cliente.setDataNascimento(rs.getDate("dataNascimento"));
                 cliente.setGenero(rs.getInt("GeneroId"));
                 clientes.add(cliente);
             }
@@ -92,7 +92,7 @@ public class RepositorioPessoaFisica implements IRepositorioPessoaFisica, IRepos
                 cliente.setId(rs.getInt("id"));
                 cliente.setNome(rs.getString("nome"));
                 cliente.setCpf(rs.getString("CPF"));
-                cliente.setDataNascimento(rs.getDate("dataNascimento"));
+                //cliente.setDataNascimento(rs.getDate("dataNascimento"));
                 cliente.setGenero(rs.getInt("GeneroId"));
                 return cliente;
             }
@@ -109,15 +109,15 @@ public class RepositorioPessoaFisica implements IRepositorioPessoaFisica, IRepos
         try {
             PessoaFisica cliente = (PessoaFisica) entity;
             connection = ConnectionUtils.getConnection();
-            String sql = "UPDATE PessoaFisica SET Nome=?, DataNascimento=?, GeneroId=?, CPF=? WHERE Id = ?";
+            String sql = "UPDATE PessoaFisica SET Nome=?, GeneroId=?, CPF=? WHERE Id = ?";
 
             DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, cliente.getNome());
-            ps.setString(2, format.format(cliente.getDataNascimento()));
-            ps.setInt(3, cliente.getGenero());
-            ps.setString(4, cliente.getCpf());
-            ps.setInt(9, cliente.getId());
+            //ps.setString(2, format.format(cliente.getDataNascimento()));
+            ps.setInt(2, cliente.getGenero());
+            ps.setString(3, cliente.getCpf());
+            ps.setInt(4, cliente.getId());
             
             ps.execute();
         } catch (SQLException e) {
@@ -196,9 +196,9 @@ try {
 
     @Override
     public boolean verificaCPF(String CPF) throws SQLException {
-try {
+        try {
             connection = ConnectionUtils.getConnection();
-
+            
             String sql = "SELECT * FROM PessoaFisica WHERE CPF = ?";
 
             PreparedStatement pst = connection.prepareStatement(sql);
@@ -213,6 +213,7 @@ try {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-        return false;    }
+        return false;
+    }
     
 }

@@ -16,4 +16,8 @@ public interface IRepositorioConta {
     Object listar() throws SQLException;
     Object pegar(Integer id) throws SQLException;
     void deletar(Integer id) throws SQLException;
+    public Object buscarPorIdCliente(int idCliente) throws SQLException;
+    public Object procurarPeloNumConta(int numConta) throws SQLException;
+    public boolean verificaNumeroConta(String numConta) throws SQLException;
+    
 }

@@ -45,7 +45,7 @@ public class TelaConsultarPessoasFisicas extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
-        jLabel1.setText("Nome Titutal/CPF/CNPJ:");
+        jLabel1.setText("Nome Titutal/CPF:");
 
         CampoPesquisa.setText("jTextField1");
 
@@ -110,7 +110,7 @@ public class TelaConsultarPessoasFisicas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CampoPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonBuscar))
@@ -123,24 +123,6 @@ public class TelaConsultarPessoasFisicas extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
-        String pesquisa = CampoPesquisa.getText();
-        try {
-            ArrayList<PessoaFisica> clientes = new ArrayList<PessoaFisica>();
-            if(pesquisa.equals(""))
-                clientes = ServicoPessoaFisica.listar();
-            else
-                clientes = ServicoPessoaFisica.procurarPeloNome(pesquisa);
-            
-            if(clientes.size() > 0)
-                atualizarTabela(clientes);
-            else
-                JOptionPane.showMessageDialog(rootPane, "Nenhum Cliente encontrado", "Aviso!", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
@@ -167,6 +149,24 @@ public class TelaConsultarPessoasFisicas extends javax.swing.JFrame {
             }
             
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
+        String pesquisa = CampoPesquisa.getText();
+        try {
+            ArrayList<PessoaFisica> clientes = new ArrayList<PessoaFisica>();
+            if(pesquisa.equals(""))
+            clientes = ServicoPessoaFisica.listar();
+            else
+            clientes = ServicoPessoaFisica.procurarPeloNome(pesquisa);
+
+            if(clientes.size() > 0)
+            atualizarTabela(clientes);
+            else
+            JOptionPane.showMessageDialog(rootPane, "Nenhum Cliente encontrado", "Aviso!", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonBuscarActionPerformed
        private void atualizarTabela(ArrayList<PessoaFisica> clientes) {
         DefaultTableModel model = (DefaultTableModel)clientesTabela.getModel();
         model.setRowCount(0);

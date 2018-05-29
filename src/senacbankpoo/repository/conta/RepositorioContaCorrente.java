@@ -21,7 +21,7 @@ import senacbankpoo.repository.contracts.IRepositorioConta;
  *
  * @author Beto
  */
-public class RepositiorioContaCorrente implements IRepositorioConta{
+public class RepositorioContaCorrente implements IRepositorioConta{
     
     static Connection connection;
 
@@ -30,12 +30,13 @@ public class RepositiorioContaCorrente implements IRepositorioConta{
         try {
             connection = ConnectionUtils.getConnection();
             ContaCorrente conta = (ContaCorrente) entity;
-            String sql = "INSERT INTO ContaCorrente(Saldo, Senha, ClienteId) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO ContaCorrente(numConta, Saldo, Senha, ClienteId) VALUES (?, ?, ?, ?)";
             PreparedStatement pst = connection.prepareStatement(sql);
 
-            pst.setDouble(1, conta.getSaldo());
-            pst.setString(2, conta.getPassword());
-            pst.setInt(3, conta.getClienteId());
+            pst.setInt(1, conta.getNumConta());
+            pst.setDouble(2, 0);
+            pst.setString(3, conta.getPassword());
+            pst.setInt(4, conta.getClienteId());
             pst.execute();
 
         } catch (SQLException e) {
@@ -104,6 +105,78 @@ public class RepositiorioContaCorrente implements IRepositorioConta{
         } catch(Exception e){
             e.printStackTrace();
         }
+    }
+    
+    @Override
+    public Object procurarPeloNumConta(int numConta) throws SQLException {
+    try {
+            connection = ConnectionUtils.getConnection();
+            String sql = "SELECT * FROM ContaCorrente WHERE NumConta = ?";
+
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, numConta);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                ContaCorrente contaCorrente = new ContaCorrente();
+                contaCorrente.setId(rs.getInt("id"));
+                contaCorrente.setClienteId(rs.getInt("ClienteId"));
+                contaCorrente.setSaldo(rs.getDouble("Saldo"));
+                return contaCorrente;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;    }
+
+    @Override
+    public boolean verificaNumeroConta(String numConta) throws SQLException {
+        try {
+            connection = ConnectionUtils.getConnection();
+            
+            String sql = "SELECT * FROM ContaCorrente WHERE numConta = ?";
+
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1, numConta);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public Object buscarPorIdCliente(int idCliente) throws SQLException {
+ ArrayList<ContaCorrente> clientes = new ArrayList();
+        try {
+            connection = ConnectionUtils.getConnection();
+
+            String sql = "SELECT * FROM ContaCorrente WHERE ClienteId = ?";
+
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1, String.valueOf(idCliente));
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                ContaCorrente contaCorrente = new ContaCorrente();
+                contaCorrente.setId(rs.getInt("id"));
+                contaCorrente.setClienteId(rs.getInt("ClienteId"));
+                contaCorrente.setSaldo(rs.getDouble("Saldo"));
+                return contaCorrente;
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return clientes;
     }
     
 }

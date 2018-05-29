@@ -6,15 +6,20 @@
 package senacbankpoo.ui;
 
 import javax.swing.JFrame;
-import senacbankpoo.ui.clientes.TelaCadastroPessoaFisica;
+import senacbankpoo.ui.clientes.TelaConsultaPessoaJuridica;
 import senacbankpoo.ui.clientes.TelaConsultarPessoasFisicas;
+import senacbankpoo.ui.contas.TelaConsultarContasCorrente;
 
 /**
  *
  * @author Beto
  */
 public class Home extends javax.swing.JFrame {
+
     private TelaConsultarPessoasFisicas telaConsultarPessoasFisicas = null;
+    private TelaConsultaPessoaJuridica telaConsultaPessoaJuridica = null;
+    
+    private TelaConsultarContasCorrente telaConsultarContasCorrente = null;
 
     /**
      * Creates new form Home
@@ -35,11 +40,13 @@ public class Home extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jMenu1.setText("File");
+        jMenu1.setText("Clientes");
 
         jMenuItem1.setText("Gereneciador Pessoa Fisica");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -49,9 +56,26 @@ public class Home extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
+        jMenuItem2.setText("Gerenciador Pessoa Jurídica");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("Contas");
+
+        jMenuItem3.setText("Gerenciar Contas Correntes");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem3);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -71,7 +95,7 @@ public class Home extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        if(telaConsultarPessoasFisicas == null || !telaConsultarPessoasFisicas.isDisplayable()) {
+        if (telaConsultarPessoasFisicas == null || !telaConsultarPessoasFisicas.isDisplayable()) {
             telaConsultarPessoasFisicas = new TelaConsultarPessoasFisicas();
             telaConsultarPessoasFisicas.pack();
             telaConsultarPessoasFisicas.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -80,6 +104,29 @@ public class Home extends javax.swing.JFrame {
         }
         telaConsultarPessoasFisicas.toFront();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        if (telaConsultaPessoaJuridica == null || !telaConsultaPessoaJuridica.isDisplayable()) {
+            telaConsultaPessoaJuridica = new TelaConsultaPessoaJuridica();
+            telaConsultaPessoaJuridica.pack();
+            telaConsultaPessoaJuridica.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            telaConsultaPessoaJuridica.setLocationRelativeTo(null);
+            telaConsultaPessoaJuridica.setVisible(true);
+        }
+        telaConsultaPessoaJuridica.toFront();
+
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        if (telaConsultarContasCorrente == null || !telaConsultarContasCorrente.isDisplayable()) {
+            telaConsultarContasCorrente = new TelaConsultarContasCorrente();
+            telaConsultarContasCorrente.pack();
+            telaConsultarContasCorrente.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            telaConsultarContasCorrente.setLocationRelativeTo(null);
+            telaConsultarContasCorrente.setVisible(true);
+        }
+        telaConsultarContasCorrente.toFront();
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -95,16 +142,24 @@ public class Home extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Home.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Home.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Home.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Home.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -121,5 +176,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     // End of variables declaration//GEN-END:variables
 }

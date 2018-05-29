@@ -20,7 +20,7 @@ import senacbankpoo.repository.contracts.IRepositorioConta;
  *
  * @author Beto
  */
-public class RepositioContaPoupanca implements IRepositorioConta{
+public class RepositorioContaPoupanca implements IRepositorioConta{
 
     static Connection connection;
 
@@ -102,6 +102,21 @@ public class RepositioContaPoupanca implements IRepositorioConta{
         } catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public Object procurarPeloNumConta(int numConta) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean verificaNumeroConta(String numConta) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Object buscarPorIdCliente(int idCliente) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

@@ -9,6 +9,24 @@ package senacbankpoo.model;
  *
  * @author Beto
  */
-public class ContaPoupanca extends Conta{
+public class ContaPoupanca extends Conta {
+    private float rendamensal;
+    private float transferir;
+    
+    public float getRendamensal() {
+        return rendamensal;
+    }
+
+    public void setRendamensal(float rendamensal) {
+        this.rendamensal = rendamensal;
+    }
+
+    public float getTransferir() {
+        return transferir;
+    }
+
+    public void setTransferir(float transferir) {
+        this.transferir = transferir;
+    }
     
 }

@@ -5,17 +5,25 @@
  */
 package senacbankpoo.ui.contas;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import senacbankpoo.services.conta.ServicoContaCorrente;
+
 /**
  *
  * @author Beto
  */
-public class TelaConsultarContas extends javax.swing.JFrame {
+public class TelaConsultarContasCorrente extends javax.swing.JFrame {
 
+    private TelaCriarContaCorrente telaCriarContaCorrente;
+    
     /**
      * Creates new form TelaConsultarContas
      */
-    public TelaConsultarContas() {
+    public TelaConsultarContasCorrente() {
         initComponents();
+        setTitle("Consultar Contas Corrente");
+        setResizable(false);
     }
 
     /**
@@ -28,21 +36,19 @@ public class TelaConsultarContas extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        campoConta = new javax.swing.JTextField();
+        botaoBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        botaoCriarNovaConta = new javax.swing.JButton();
+        botaoSair = new javax.swing.JButton();
 
         jLabel1.setText("Numero ou Nome do Titutal da Conta:");
 
-        jTextField1.setText("jTextField1");
-
-        jButton1.setText("Buscar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        botaoBuscar.setText("Buscar");
+        botaoBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                botaoBuscarActionPerformed(evt);
             }
         });
 
@@ -59,17 +65,17 @@ public class TelaConsultarContas extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jButton2.setText("Nova Conta");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        botaoCriarNovaConta.setText("Nova Conta");
+        botaoCriarNovaConta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                botaoCriarNovaContaActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Sair");
+        botaoSair.setText("Sair");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -80,15 +86,15 @@ public class TelaConsultarContas extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(campoConta, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1)))
+                                .addComponent(botaoBuscar)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2)
+                        .addComponent(botaoCriarNovaConta)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)))
+                        .addComponent(botaoSair)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -98,34 +104,51 @@ public class TelaConsultarContas extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(campoConta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoBuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(botaoCriarNovaConta)
+                    .addComponent(botaoSair))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void botaoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoBuscarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_botaoBuscarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void botaoCriarNovaContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCriarNovaContaActionPerformed
+        //int selected = tabelaContas.getSelectedRow();
+            try {
+                if(telaCriarContaCorrente == null || !telaCriarContaCorrente.isDisplayable()) {
+                    telaCriarContaCorrente = new TelaCriarContaCorrente();
+                    telaCriarContaCorrente.pack();
+                    telaCriarContaCorrente.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    telaCriarContaCorrente.setLocationRelativeTo(null);
+                    telaCriarContaCorrente.setVisible(true);
+                }
+                telaCriarContaCorrente.toFront();
+                //DefaultTableModel model = (DefaultTableModel)clientesTabela.getModel();
+                //String cpf = (String)model.getValueAt(selected, 0);
+                //ContaCorrente contaCorrente = ServicoContaCorrente.procurarPeloNumero(cpf);
+
+                //telaCriarContaCorrente.alterarCliente(contaCorrente);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+    }//GEN-LAST:event_botaoCriarNovaContaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton botaoBuscar;
+    private javax.swing.JButton botaoCriarNovaConta;
+    private javax.swing.JButton botaoSair;
+    private javax.swing.JTextField campoConta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

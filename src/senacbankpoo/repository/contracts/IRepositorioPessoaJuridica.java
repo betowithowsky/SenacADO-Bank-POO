@@ -11,7 +11,7 @@ import java.sql.SQLException;
  *
  * @author Beto
  */
-public interface IRepositorioPessoaJuridica {
+public interface IRepositorioPessoaJuridica extends IRepositorio{
     public Object procurarPeloCNPJ (String CNPJ) throws SQLException;
     public boolean verificaCNPJ (String CNPJ) throws SQLException;    
 }
