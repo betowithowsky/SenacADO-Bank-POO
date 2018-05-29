@@ -5,6 +5,7 @@
  */
 package senacbankpoo.ui.caixa;
 
+import javax.swing.JFrame;
 import senacbankpoo.services.login.ServicoLogin;
 
 /**
@@ -12,6 +13,10 @@ import senacbankpoo.services.login.ServicoLogin;
  * @author Beto
  */
 public class TelaCaixaCorrente extends javax.swing.JFrame {
+    
+    private TelaSaque telaSaque = null;
+    private TelaTransferencia telaTranferencia = null;
+    private TelaDeposito telaDeposito = null;
 
     /**
      * Creates new form TelaCaixaHome
@@ -40,6 +45,11 @@ public class TelaCaixaCorrente extends javax.swing.JFrame {
         buttonDepositar.setText("Depositar");
 
         buttonSacar.setText("Sacar");
+        buttonSacar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSacarActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Sair");
 
@@ -110,6 +120,17 @@ public class TelaCaixaCorrente extends javax.swing.JFrame {
     private void buttonTranferirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTranferirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonTranferirActionPerformed
+
+    private void buttonSacarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSacarActionPerformed
+        if (telaSaque == null || !telaSaque.isDisplayable()) {
+                telaSaque = new TelaSaque();
+                telaSaque.pack();
+                telaSaque.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                telaSaque.setLocationRelativeTo(null);
+                telaSaque.setVisible(true);
+            }
+            telaSaque.toFront();
+    }//GEN-LAST:event_buttonSacarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

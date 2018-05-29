@@ -65,7 +65,7 @@ public class TelaConsultarContaPoupanca extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Num.Conta", "Nome", "CNPJ", "Saldo"
+                "Num.Conta", "Nome", "CPF", "Saldo"
             }
         ));
         jScrollPane1.setViewportView(tabelaContasCorrente);
@@ -156,7 +156,6 @@ public class TelaConsultarContaPoupanca extends javax.swing.JFrame {
             Object[] row = {
                 conta.getNumConta(),
                 conta.getNomeCliente(),
-                conta.getSobrenomeCliente(),
                 conta.getCPF(),
                 conta.getSaldo()
             };

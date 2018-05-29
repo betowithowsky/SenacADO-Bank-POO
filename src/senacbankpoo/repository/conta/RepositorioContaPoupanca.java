@@ -28,12 +28,13 @@ public class RepositorioContaPoupanca implements IRepositorioConta {
         try {
             connection = ConnectionUtils.getConnection();
             ContaPoupanca conta = (ContaPoupanca) entity;
-            String sql = "INSERT INTO ContaPoupanca(Saldo, Senha, ClienteId) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO ContaPoupanca(Saldo, Senha, ClienteId, NumConta) VALUES (?, ?, ?, ?)";
             PreparedStatement pst = connection.prepareStatement(sql);
 
-            pst.setDouble(1, conta.getSaldo());
+            pst.setDouble(1, 0);
             pst.setString(2, conta.getPassword());
             pst.setInt(3, conta.getClienteId());
+            pst.setInt(4, conta.getNumConta());
             pst.execute();
 
         } catch (SQLException e) {
@@ -47,15 +48,18 @@ public class RepositorioContaPoupanca implements IRepositorioConta {
         ArrayList<Conta> contas = new ArrayList<Conta>();
         try {
             connection = ConnectionUtils.getConnection();
-            String sql = "SELECT * FROM ContaPoupanca";
+            String sql = "SELECT PessoaFisica.NOME, PessoaFisica.CPF, ContaPoupanca.NUMCONTA, ContaPoupanca.SALDO FROM PessoaFisica INNER JOIN ContaPoupanca ON PessoaFisica.ID = ContaPoupanca.clienteId";
 
             PreparedStatement pst = connection.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
                 ContaPoupanca conta = new ContaPoupanca();
-                conta.setId(rs.getInt("Id"));
-                conta.setClienteId(rs.getInt("ClienteId"));
+                conta.setNomeCliente(rs.getString("nome"));
+                conta.setCPF(rs.getString("CPF"));
+                conta.setnumConta(rs.getInt("numConta"));
+                conta.setSaldo(rs.getDouble("Saldo"));
+                contas.add(conta);
             }
         } catch (Exception e) {
             e.printStackTrace();

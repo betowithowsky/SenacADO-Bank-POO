@@ -11,8 +11,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import senacbankpoo.connection.ConnectionUtils;
 import senacbankpoo.model.Conta;
+import senacbankpoo.model.ContaCorrente;
 import senacbankpoo.model.PessoaJuridica;
 import senacbankpoo.repository.contracts.IRepositorioCaixaEletronico;
+import static senacbankpoo.services.login.ServicoLogin.contaLogada;
 
 /**
  *
@@ -23,23 +25,26 @@ public class RepositorioCaixaEletronico implements IRepositorioCaixaEletronico{
     static Connection connection;
 
     @Override
-    public void saque(Conta conta, double quantidade) {
-        if(conta.saque(quantidade) == true){
-            System.out.println("Ok, Sacou");
+    public void saque(Object entity, double quantidade) {
+        try {
+            if(contaLogada.saque(quantidade) == true){
+            connection = ConnectionUtils.getConnection();
+            ContaCorrente conta = (ContaCorrente) entity;
+            String sql = "UPDATE contaCorrente SET Saldo=? WHERE Id = ?";            
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setDouble(1, conta.getSaldo());
+            pst.setInt(2, conta.getId());
+            pst.execute();
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
         }
-        System.out.println("Não tem Saldo.");
     }
 
     @Override
     public void deposito(Conta conta, double quantidade) {
         conta.deposito(quantidade);
         System.out.println("Conlcúido.");
-    }
-
-    @Override
-    public double saldo(Conta conta) {
-        double saldo = conta.getSaldo();
-        return saldo;
     }
     
 }
