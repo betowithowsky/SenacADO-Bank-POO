@@ -90,9 +90,10 @@ public class TelaSaque extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         double valorSaque = Double.parseDouble(campoValorSaque.getText());
+        int idConta = ServicoLogin.contaLogada.getId();
         ContaCorrente conta = ServicoLoginCorrente.contaLogada;
         try{
-            ServicoCaixaEletronico.saque(conta, valorSaque);            
+            ServicoCaixaEletronico.saque(idConta, valorSaque);            
         }catch(Exception e){
             JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }

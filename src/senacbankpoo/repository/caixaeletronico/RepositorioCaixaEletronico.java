@@ -25,16 +25,17 @@ public class RepositorioCaixaEletronico implements IRepositorioCaixaEletronico{
     static Connection connection;
 
     @Override
-    public void saque(Object entity, double quantidade) {
+    public void saque(int idConta, double quantidade) {
         try {
-            if(contaLogada.saque(quantidade) == true){
-            connection = ConnectionUtils.getConnection();
-            ContaCorrente conta = (ContaCorrente) entity;
-            String sql = "UPDATE contaCorrente SET Saldo=? WHERE Id = ?";            
-            PreparedStatement pst = connection.prepareStatement(sql);
-            pst.setDouble(1, conta.getSaldo());
-            pst.setInt(2, conta.getId());
-            pst.execute();
+            if(contaLogada.getSaldo() > quantidade){
+            double novoSaldo = quantidade;
+            connection = ConnectionUtils.getConnection();            
+            String sql = "UPDATE contaCorrente SET Saldo = ? WHERE Id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setDouble(1, novoSaldo);
+            ps.setInt(2, contaLogada.getId());           
+            ps.execute();
+                    
             }
         }catch (Exception e) {
             e.printStackTrace();

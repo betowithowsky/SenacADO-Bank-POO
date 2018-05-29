@@ -6,7 +6,7 @@
 package senacbankpoo.ui.caixa;
 
 import javax.swing.JFrame;
-import senacbankpoo.services.login.ServicoLogin;
+import senacbankpoo.services.login.ServicoLoginCorrente;
 
 /**
  *
@@ -62,9 +62,9 @@ public class TelaCaixaCorrente extends javax.swing.JFrame {
             }
         });
 
-        LabelBoasVindas.setText("Bem Vindo " + ServicoLogin.contaLogada.getNomeCliente());
+        LabelBoasVindas.setText("Bem Vindo " + ServicoLoginCorrente.contaLogada.getNomeCliente());
 
-        LabelSaldo.setText("Saldo: " + ServicoLogin.contaLogada.getSaldo());
+        LabelSaldo.setText("Saldo: " + ServicoLoginCorrente.contaLogada.getSaldo());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
