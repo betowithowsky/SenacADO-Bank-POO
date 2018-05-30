@@ -26,12 +26,34 @@ public class ServicoCaixaEletronico{
         }
     }
 
-    public static void deposito(Conta conta, double quantidade) {
+    public static void deposito(int idConta, double quantidade) {
         try {
-            repositorio.deposito(conta, quantidade);
+            repositorio.deposito(idConta, quantidade);
         } catch (Exception e) {
             e.getMessage();
         }
     }
+    
+    public static void transferencia(int idContaOrigem, int numContaDestino, double valor) {
+        try {
+            if(saldo(idContaOrigem) < valor){
+                new Exception("Saldo Insuficiente.");
+            }
+            
+            repositorio.transferencia(idContaOrigem, numContaDestino, valor);
+        } catch (Exception e) {
+            e.getMessage();
+        }
+    }
+    
+    public static double saldo(int idConta) {
+        try {
+            return repositorio.saldo(idConta);
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return 0;
+    }
+    
     
 }

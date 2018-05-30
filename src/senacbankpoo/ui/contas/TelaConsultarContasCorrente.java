@@ -45,6 +45,7 @@ public class TelaConsultarContasCorrente extends javax.swing.JFrame {
         tabelaContasCorrente = new javax.swing.JTable();
         botaoCriarNovaConta = new javax.swing.JButton();
         botaoSair = new javax.swing.JButton();
+        buttonGerarCartao = new javax.swing.JButton();
 
         jLabel1.setText("Numero ou Nome do Titutal da Conta:");
 
@@ -82,6 +83,13 @@ public class TelaConsultarContasCorrente extends javax.swing.JFrame {
             }
         });
 
+        buttonGerarCartao.setText("Gerar Cartão");
+        buttonGerarCartao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonGerarCartaoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -99,7 +107,8 @@ public class TelaConsultarContasCorrente extends javax.swing.JFrame {
                                 .addComponent(botaoBuscar)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(buttonGerarCartao)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(botaoCriarNovaConta)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botaoSair)))
@@ -119,7 +128,8 @@ public class TelaConsultarContasCorrente extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoCriarNovaConta)
-                    .addComponent(botaoSair))
+                    .addComponent(botaoSair)
+                    .addComponent(buttonGerarCartao))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -181,11 +191,28 @@ public class TelaConsultarContasCorrente extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_botaoSairActionPerformed
 
+    private void buttonGerarCartaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGerarCartaoActionPerformed
+        try {
+            if(tabelaContasCorrente.getSelectedRowCount() > 0){
+                int selected = tabelaContasCorrente.getSelectedRow();
+                DefaultTableModel model = (DefaultTableModel)tabelaContasCorrente.getModel();
+                int numConta = Integer.parseInt(model.getValueAt(selected, 0).toString());
+                            
+                ContaCorrente contaCorrente = ServicoContaCorrente.procurarPeloNumero(numConta);
+                ServicoContaCorrente.gerarCartaoTxt(contaCorrente);
+            }
+            
+            } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_buttonGerarCartaoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoBuscar;
     private javax.swing.JButton botaoCriarNovaConta;
     private javax.swing.JButton botaoSair;
+    private javax.swing.JButton buttonGerarCartao;
     private javax.swing.JTextField campoConta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

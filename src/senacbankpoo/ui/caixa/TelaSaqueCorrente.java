@@ -5,16 +5,20 @@
  */
 package senacbankpoo.ui.caixa;
 
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import senacbankpoo.model.ContaCorrente;
 import senacbankpoo.services.caixaEletronico.ServicoCaixaEletronico;
 import senacbankpoo.services.login.ServicoLoginCorrente;
+import static senacbankpoo.services.login.ServicoLoginCorrente.contaLogada;
 
 /**
  *
  * @author Beto
  */
-public class TelaSaqueCorrente extends javax.swing.JFrame {
+public class TelaSaqueCorrente extends javax.swing.JFrame {    
+    public TelaCaixaCorrente telaCaixaCorrente;
+    public double saldoSessao = ServicoCaixaEletronico.saldo(contaLogada.getId());
 
     /**
      * Creates new form TelaSaque
@@ -33,25 +37,25 @@ public class TelaSaqueCorrente extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
-        LabelSaldo = new javax.swing.JLabel();
         campoValorSaque = new javax.swing.JTextField();
         LabelValorSacar = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        buttonSacar = new javax.swing.JButton();
+        LabelSaldoConta = new javax.swing.JLabel();
 
         jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        LabelSaldo.setText("Saldo: " + senacbankpoo.services.login.ServicoLoginCorrente.contaLogada.getSaldo());
-
         LabelValorSacar.setText("Valor a Sacar:");
 
-        jButton2.setText("Sacar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        buttonSacar.setText("Sacar");
+        buttonSacar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                buttonSacarActionPerformed(evt);
             }
         });
+
+        LabelSaldoConta.setText("Saldo: " + saldoSessao);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -60,45 +64,50 @@ public class TelaSaqueCorrente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LabelSaldo)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(buttonSacar))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(LabelValorSacar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(campoValorSaque, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(LabelValorSacar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(campoValorSaque, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(LabelSaldoConta))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(LabelSaldo)
+                .addComponent(LabelSaldoConta)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LabelValorSacar)
                     .addComponent(campoValorSaque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(buttonSacar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void buttonSacarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSacarActionPerformed
         double valorSaque = Double.parseDouble(campoValorSaque.getText());
         int idConta = ServicoLoginCorrente.contaLogada.getId();
-        ContaCorrente conta = ServicoLoginCorrente.contaLogada;
+        
         try{
-            ServicoCaixaEletronico.saque(idConta, valorSaque);            
+            ServicoCaixaEletronico.saque(idConta, valorSaque);  
+            telaCaixaCorrente.atualizaSaldo();
+            LabelSaldoConta.setText("Saldo: " + String.valueOf(ServicoCaixaEletronico.saldo(idConta)));
         }catch(Exception e){
             JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_buttonSacarActionPerformed
 
+    
     /**
      * @param args the command line arguments
      */
@@ -136,10 +145,10 @@ public class TelaSaqueCorrente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel LabelSaldo;
+    private javax.swing.JLabel LabelSaldoConta;
     private javax.swing.JLabel LabelValorSacar;
+    private javax.swing.JButton buttonSacar;
     private javax.swing.JTextField campoValorSaque;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     // End of variables declaration//GEN-END:variables
 }

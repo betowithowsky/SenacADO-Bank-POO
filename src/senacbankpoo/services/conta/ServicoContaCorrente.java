@@ -5,6 +5,12 @@
  */
 package senacbankpoo.services.conta;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import senacbankpoo.model.ContaCorrente;
@@ -82,4 +88,28 @@ public class ServicoContaCorrente {
             e.printStackTrace();
         }
     }
+    
+    public static void gerarCartaoTxt(ContaCorrente contaOrigem) throws IOException{  
+        
+        File file = new File("Cartao"+contaOrigem.getNomeCliente()+".txt");
+        
+            // Se o arquivo nao existir, ele gera
+            if (!file.exists()) {
+                file.createNewFile();
+            }        
+
+        try {
+            FileWriter fileWriter = new FileWriter(file);
+
+            BufferedWriter buffer = new BufferedWriter(fileWriter);
+            
+            buffer.write(contaOrigem.getNumConta() + ";" + contaOrigem.getNomeCliente());
+            // feche o arquivo
+            buffer.close();
+            System.out.println("Done.");
+        }
+        catch(IOException ex) {
+            System.out.println("Erro de escrita em '" + file + "'");
+        }    
+    }    
 }

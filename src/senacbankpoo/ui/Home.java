@@ -7,12 +7,9 @@ package senacbankpoo.ui;
 
 import javax.swing.JFrame;
 import senacbankpoo.ui.caixa.TelaCaixaCorrente;
-import senacbankpoo.ui.caixa.TelaCaixaPoupanca;
+import senacbankpoo.ui.caixa.TelaDeposito;
 import senacbankpoo.ui.caixa.TelaLoginCorrente;
-import senacbankpoo.ui.caixa.TelaLoginPoupanca;
-import senacbankpoo.ui.clientes.TelaConsultaPessoaJuridica;
 import senacbankpoo.ui.clientes.TelaConsultarPessoasFisicas;
-import senacbankpoo.ui.contas.TelaConsultarContaPoupanca;
 import senacbankpoo.ui.contas.TelaConsultarContasCorrente;
 
 /**
@@ -22,16 +19,12 @@ import senacbankpoo.ui.contas.TelaConsultarContasCorrente;
 public class Home extends javax.swing.JFrame {
 
     private TelaConsultarPessoasFisicas telaConsultarPessoasFisicas = null;
-    private TelaConsultaPessoaJuridica telaConsultaPessoaJuridica = null;
 
     private TelaConsultarContasCorrente telaConsultarContasCorrente = null;
-    private TelaConsultarContaPoupanca telaConsultarContaPoupanca = null;
+    
+    private TelaDeposito telaDeposito = null;
 
-    private TelaCaixaCorrente telaCaixaCorrente = null;
-    private TelaCaixaPoupanca telaCaixaPoupanca = null;
-
-    private TelaLoginCorrente telaLoginC = null;
-    private TelaLoginPoupanca telaLoginP = null;
+    private TelaLoginCorrente telaLogin = null;
 
     /**
      * Creates new form Home
@@ -54,11 +47,9 @@ public class Home extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        menuDeposito = new javax.swing.JMenuItem();
         menuLoginContaCorrente = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -84,25 +75,17 @@ public class Home extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem3);
 
-        jMenuItem5.setText("Gerenciar Contas Poupança");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem5);
-
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Caixa Eletronico");
 
-        jMenuItem4.setText("Home");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        menuDeposito.setText("Deposito");
+        menuDeposito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                menuDepositoActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem4);
+        jMenu3.add(menuDeposito);
 
         menuLoginContaCorrente.setText("Login Conta Corrente");
         menuLoginContaCorrente.addActionListener(new java.awt.event.ActionListener() {
@@ -111,14 +94,6 @@ public class Home extends javax.swing.JFrame {
             }
         });
         jMenu3.add(menuLoginContaCorrente);
-
-        jMenuItem6.setText("Login Conta Poupanca");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem6);
 
         jMenuBar1.add(jMenu3);
 
@@ -160,49 +135,27 @@ public class Home extends javax.swing.JFrame {
         telaConsultarContasCorrente.toFront();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        if (telaCaixaCorrente == null || !telaCaixaCorrente.isDisplayable()) {
-            telaCaixaCorrente = new TelaCaixaCorrente();
-            telaCaixaCorrente.pack();
-            telaCaixaCorrente.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            telaCaixaCorrente.setLocationRelativeTo(null);
-            telaCaixaCorrente.setVisible(true);
+    private void menuDepositoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDepositoActionPerformed
+        if (telaDeposito == null || !telaDeposito.isDisplayable()) {
+            telaDeposito = new TelaDeposito();
+            telaDeposito.pack();
+            telaDeposito.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            telaDeposito.setLocationRelativeTo(null);
+            telaDeposito.setVisible(true);
         }
-        telaConsultarContasCorrente.toFront();
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
-
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        if (telaConsultarContaPoupanca == null || !telaConsultarContaPoupanca.isDisplayable()) {
-            telaConsultarContaPoupanca = new TelaConsultarContaPoupanca();
-            telaConsultarContaPoupanca.pack();
-            telaConsultarContaPoupanca.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            telaConsultarContaPoupanca.setLocationRelativeTo(null);
-            telaConsultarContaPoupanca.setVisible(true);
-        }
-        telaConsultarContaPoupanca.toFront();
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+        telaDeposito.toFront();
+    }//GEN-LAST:event_menuDepositoActionPerformed
 
     private void menuLoginContaCorrenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLoginContaCorrenteActionPerformed
-        if (telaLoginP == null || !telaLoginC.isDisplayable()) {
-            telaLoginC = new TelaLoginCorrente();
-            telaLoginC.pack();
-            telaLoginC.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            telaLoginC.setLocationRelativeTo(null);
-            telaLoginC.setVisible(true);
+if (telaLogin == null || !telaLogin.isDisplayable()) {
+            telaLogin = new TelaLoginCorrente();
+            telaLogin.pack();
+            telaLogin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            telaLogin.setLocationRelativeTo(null);
+            telaLogin.setVisible(true);
         }
-        telaLoginC.toFront();
+        telaLogin.toFront();
     }//GEN-LAST:event_menuLoginContaCorrenteActionPerformed
-
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        if (telaLoginP == null || !telaLoginP.isDisplayable()) {
-            telaLoginP = new TelaLoginPoupanca();
-            telaLoginP.pack();
-            telaLoginP.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            telaLoginP.setLocationRelativeTo(null);
-            telaLoginP.setVisible(true);
-        }
-        telaLoginP.toFront();
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -254,9 +207,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem menuDeposito;
     private javax.swing.JMenuItem menuLoginContaCorrente;
     // End of variables declaration//GEN-END:variables
 }

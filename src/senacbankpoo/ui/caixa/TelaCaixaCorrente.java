@@ -6,7 +6,9 @@
 package senacbankpoo.ui.caixa;
 
 import javax.swing.JFrame;
+import senacbankpoo.services.caixaEletronico.ServicoCaixaEletronico;
 import senacbankpoo.services.login.ServicoLoginCorrente;
+import static senacbankpoo.services.login.ServicoLoginCorrente.contaLogada;
 
 /**
  *
@@ -16,7 +18,9 @@ public class TelaCaixaCorrente extends javax.swing.JFrame {
     
     private TelaSaqueCorrente telaSaque = null;
     private TelaTransferencia telaTranferencia = null;
-    private TelaDeposito telaDeposito = null;
+    
+    public double saldoSessao = ServicoCaixaEletronico.saldo(contaLogada.getId());
+
 
     /**
      * Creates new form TelaCaixaHome
@@ -34,16 +38,13 @@ public class TelaCaixaCorrente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonDepositar = new javax.swing.JButton();
         buttonSacar = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        buttonSair = new javax.swing.JButton();
+        labelTitulo = new javax.swing.JLabel();
         buttonTranferir = new javax.swing.JButton();
         LabelBoasVindas = new javax.swing.JLabel();
-        LabelSaldo = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-
-        buttonDepositar.setText("Depositar");
+        labelIdClienteSessao = new javax.swing.JLabel();
+        LabelSaldoConta = new javax.swing.JLabel();
 
         buttonSacar.setText("Sacar");
         buttonSacar.addActionListener(new java.awt.event.ActionListener() {
@@ -52,9 +53,9 @@ public class TelaCaixaCorrente extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Sair");
+        buttonSair.setText("Logar");
 
-        jLabel1.setText("Caixa Eletronico");
+        labelTitulo.setText("Caixa Eletronico");
 
         buttonTranferir.setText("Transferir");
         buttonTranferir.addActionListener(new java.awt.event.ActionListener() {
@@ -65,9 +66,9 @@ public class TelaCaixaCorrente extends javax.swing.JFrame {
 
         LabelBoasVindas.setText("Bem Vindo " + senacbankpoo.services.login.ServicoLoginCorrente.contaLogada.getNomeCliente());
 
-        LabelSaldo.setText("Saldo: " + senacbankpoo.services.login.ServicoLoginCorrente.contaLogada.getSaldo());
+        labelIdClienteSessao.setText("Id:" + ServicoLoginCorrente.contaLogada.getId());
 
-        jLabel2.setText("Id:" + ServicoLoginCorrente.contaLogada.getId());
+        LabelSaldoConta.setText("Saldo: " + saldoSessao);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -79,7 +80,7 @@ public class TelaCaixaCorrente extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(39, 39, 39)
-                                .addComponent(jLabel1))
+                                .addComponent(labelTitulo))
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(LabelBoasVindas)))
@@ -88,43 +89,50 @@ public class TelaCaixaCorrente extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(buttonSacar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(buttonDepositar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButton4))
+                                .addComponent(buttonSair))
                             .addComponent(buttonTranferir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(LabelSaldo)
-                                    .addComponent(jLabel2))
+                                .addComponent(labelIdClienteSessao)
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(LabelSaldoConta)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(labelTitulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(LabelBoasVindas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(LabelSaldo)
+                .addComponent(LabelSaldoConta)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addComponent(labelIdClienteSessao)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(buttonTranferir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonSacar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonDepositar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
+                .addComponent(buttonSair)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonTranferirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTranferirActionPerformed
-        // TODO add your handling code here:
+        if (telaTranferencia == null || !telaTranferencia.isDisplayable()) {
+                telaTranferencia = new TelaTransferencia();
+                telaTranferencia.pack();
+                telaTranferencia.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                telaTranferencia.setLocationRelativeTo(null);
+                telaTranferencia.setVisible(true);
+                telaTranferencia.telaCaixaCorrente = this;
+            }
+            telaTranferencia.toFront();
     }//GEN-LAST:event_buttonTranferirActionPerformed
 
     private void buttonSacarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSacarActionPerformed
@@ -134,19 +142,22 @@ public class TelaCaixaCorrente extends javax.swing.JFrame {
                 telaSaque.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 telaSaque.setLocationRelativeTo(null);
                 telaSaque.setVisible(true);
+                telaSaque.telaCaixaCorrente = this;
             }
             telaSaque.toFront();
     }//GEN-LAST:event_buttonSacarActionPerformed
 
+    public void atualizaSaldo (){
+        LabelSaldoConta.setText("Saldo: " + ServicoCaixaEletronico.saldo(contaLogada.getId()));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabelBoasVindas;
-    private javax.swing.JLabel LabelSaldo;
-    private javax.swing.JButton buttonDepositar;
+    private javax.swing.JLabel LabelSaldoConta;
     private javax.swing.JButton buttonSacar;
+    private javax.swing.JButton buttonSair;
     private javax.swing.JButton buttonTranferir;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel labelIdClienteSessao;
+    private javax.swing.JLabel labelTitulo;
     // End of variables declaration//GEN-END:variables
 }

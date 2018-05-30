@@ -114,16 +114,17 @@ public class RepositorioContaCorrente implements IRepositorioConta{
     public Object procurarPeloNumConta(int numConta) throws SQLException {
     try {
             connection = ConnectionUtils.getConnection();
-            String sql = "SELECT * FROM ContaCorrente WHERE NumConta = ?";
+            String sql = "SELECT * FROM PessoaFisica INNER JOIN contaCorrente ON PessoaFisica.ID = contaCorrente.clienteId WHERE numConta = ?";
 
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, numConta);
-
-            ResultSet rs = ps.executeQuery();
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setInt(1, numConta);
+            ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
                 ContaCorrente contaCorrente = new ContaCorrente();
                 contaCorrente.setId(rs.getInt("id"));
+                contaCorrente.setNomeCliente(rs.getString("nome"));
+                contaCorrente.setnumConta(rs.getInt("numConta"));
                 contaCorrente.setClienteId(rs.getInt("ClienteId"));
                 contaCorrente.setSaldo(rs.getDouble("Saldo"));
                 return contaCorrente;

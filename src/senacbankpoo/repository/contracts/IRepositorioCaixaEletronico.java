@@ -12,6 +12,8 @@ import senacbankpoo.model.Conta;
  * @author Beto
  */
 public interface IRepositorioCaixaEletronico {
-    public void saque(int idConta, double quantidade);
-    public void deposito(Conta conta, double quantidade);
+    public void saque(int idContaOrigem, double valor);
+    public void deposito(int idContaOrigem, double valor);
+    public void transferencia(int idContaOrigem, int idContaDestino, double valor);
+    public double saldo(int idContaOrigem);
 }
